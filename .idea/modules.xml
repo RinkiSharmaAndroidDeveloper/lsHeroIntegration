@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyLibraryProject.iml" filepath="$PROJECT_DIR$/MyLibraryProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.example.android.rinki.mylibraryproject/com.example.android.rinki.mylibraryproject.iml" filepath="$PROJECT_DIR$/com.example.android.rinki.mylibraryproject/com.example.android.rinki.mylibraryproject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recyclerbaseadapter/recyclerbaseadapter.iml" filepath="$PROJECT_DIR$/recyclerbaseadapter/recyclerbaseadapter.iml" />
+    </modules>
+  </component>
+</project>

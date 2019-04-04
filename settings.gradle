@@ -1,0 +1,1 @@
+include ':app', ':com.example.android.rinki.mylibraryproject', ':recyclerbaseadapter'

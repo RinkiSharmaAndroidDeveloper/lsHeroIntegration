@@ -1,0 +1,10 @@
+apply plugin: 'maven'
+
+group = 'io.github.ashik619'
+version = '1.0'
+
+uploadArchives {
+    repositories {
+        mavenLocal()
+    }
+}
