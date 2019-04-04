@@ -1,2 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.ashik619.comexampleandroidrinkimylibraryproject" />
+    package="io.github.ashik619.comexampleandroidrinkimylibraryproject">
+
+    <application>
+        <activity android:name=".RssTestActivity"></activity>
+    </application>
+
+</manifest>
