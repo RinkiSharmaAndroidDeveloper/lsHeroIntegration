@@ -51,7 +51,7 @@ String id;
             id=intent.getStringExtra("id");
                     getAuthenticateLogin(id);
         }
-      //  getAuthenticateLogin("7406557772");
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         listData=new ArrayList<>();
         mAdapter = new DataListAdapter(listData);
@@ -71,11 +71,7 @@ String id;
 
         queue = Volley.newRequestQueue(this);
         progress.setVisibility(View.VISIBLE);
-//social_id, identity_id, social_profileid
-      /*  String URL = "http://letsservicetech.co.in/lsVehicle/newVehicleEnquiryDetailsForRunner/"+"71"+"/38/38/2023934918896593";
-        ///lsVehicle/newVehicleEnquirycustomerDetailsForRunner/71/38/38/2023934918896593*/
-
-        String URL = "http://stagging.us-west-2.elasticbeanstalk.com/lsgetUserData/"+mobile;
+        String URL = Utils.Base_url+mobile;
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
@@ -87,7 +83,6 @@ String id;
                         String responsemessage = null;
                         try {
                             String resposne_message = response.getString("sucess");
-                          //  String res = response.getString("message");
                             JSONArray jsonArray =response.getJSONArray("customer_details");
 
 
@@ -106,7 +101,6 @@ String id;
                                     String finalQuotation = jsonObject.getString("final_quotation");
                                     String lsAmount = jsonObject.getString("lsAmount");
 
-                                    // String name,mobile,bikeModel,bikeNo,pickAddress,locality,typeOfService,status,remarks,finalQuotation,lsAmount;
                                     DataList dataList =new DataList(customerName1,mobile1,model,pickAddress1,bikeNo,locality,typeOfService,status,remarks,finalQuotation,lsAmount);
                                     listData.add(dataList);
 
@@ -114,7 +108,7 @@ String id;
 mAdapter.notifyDataSetChanged();
 
                             }else{
-                                Toast.makeText(RssTestActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RssTestActivity.this, "Detail fetch successfully", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -127,14 +121,7 @@ mAdapter.notifyDataSetChanged();
                     public void onErrorResponse(VolleyError error) {
                         progress.setVisibility(View.GONE);
                     }
-                });/*{
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("headerToken", "355007973");
-                return params;
-            }*/
+                });
 
         queue.add(jsObjRequest);
 

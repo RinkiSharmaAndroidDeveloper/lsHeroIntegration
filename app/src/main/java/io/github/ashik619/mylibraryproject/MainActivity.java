@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements
         OnItemSelectedListener {
 TextView textView;
 Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,17 +26,14 @@ button =findViewById(R.id.updateButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(MainActivity.this, RssTestActivity.class);
-                startActivity(intent);
+             RssFeedProvider rssFeedProvider =new RssFeedProvider(MainActivity.this,"7406557772");
             }
         });
 
     }
 
     public void updateDetail(String uri) {  //
-        String number = RssFeedProvider
-                .generateRandom(4);
-        textView.setText(number);
+
 
     }
 

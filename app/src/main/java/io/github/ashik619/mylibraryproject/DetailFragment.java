@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import io.github.ashik619.comexampleandroidrinkimylibraryproject.RssFeedProvider;
-import io.github.ashik619.comexampleandroidrinkimylibraryproject.RssItem;
+
 
 /**
  * Created by dilip on 3/4/19.
@@ -51,10 +50,9 @@ public class DetailFragment extends Fragment  {
 
     // triggers update of the details fragment
     public void updateDetail(String uri) {  //
-        String number = RssFeedProvider
-                .generateRandom(4);
 
-        listener.onRssItemSelected(number);
+
+        //listener.onRssItemSelected(number);
     }
 /*
     @Override

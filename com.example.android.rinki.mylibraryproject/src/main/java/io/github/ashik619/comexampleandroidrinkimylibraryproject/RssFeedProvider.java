@@ -1,5 +1,8 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
+import android.content.Context;
+import android.content.Intent;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +13,17 @@ import java.util.Random;
  */
 
 public class RssFeedProvider {
-    private static final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public static String generateRandom(int length) {
-        Random random = new SecureRandom();
-        if (length <= 0) {
-            throw new IllegalArgumentException("String length must be a positive integer");
-        }
 
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append(characters.charAt(random.nextInt(characters.length())));
-        }
+        String mobileNumber;
+        Context context;
 
-        return sb.toString();
+    public RssFeedProvider(Context context, String mobileNumber) {
+            this.context = context;
+            this.mobileNumber = mobileNumber;
+        Intent i = new Intent(context.getApplicationContext(), RssTestActivity.class);
+        i.putExtra("id",mobileNumber);
+        context.getApplicationContext().startActivity(i);
+
     }
 
 }

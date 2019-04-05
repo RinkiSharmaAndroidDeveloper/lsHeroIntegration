@@ -3,7 +3,10 @@
     package="io.github.ashik619.comexampleandroidrinkimylibraryproject">
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application>
-        <activity android:name=".RssTestActivity"></activity>
+        <activity android:name=".RssTestActivity"
+            >
+
+        </activity>
     </application>
 
 </manifest>
