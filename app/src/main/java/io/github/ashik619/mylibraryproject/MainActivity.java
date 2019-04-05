@@ -2,6 +2,7 @@ package io.github.ashik619.mylibraryproject;
 
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import io.github.ashik619.comexampleandroidrinkimylibraryproject.RssFeedProvider;
+import io.github.ashik619.comexampleandroidrinkimylibraryproject.RssTestActivity;
 
 public class MainActivity extends AppCompatActivity implements
         OnItemSelectedListener {
@@ -23,7 +25,8 @@ button =findViewById(R.id.updateButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDetail("testing");
+                /*Intent intent =new Intent(MainActivity.this, RssTestActivity.class);
+                startActivity(intent);*/
             }
         });
 

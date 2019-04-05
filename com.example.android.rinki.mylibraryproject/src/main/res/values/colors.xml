@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0082ca</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryLight">#55a6d2</color>
+    <color name="white">#ffffff</color>
+    <color name="whiteOverlay">#bad8e5ec</color>
+    <color name="textDark">#fb353131</color>
+    <color name="textLight">#ea403b3b</color>
+    <color name="gray_line">#a27a7e81</color>
+    <color name="serviceDoneColor">#018f35</color>
+    <color name="pendingOrange">#f76708</color>
+    <color name="onTimeColor">#018f35</color>
+    <color name="grayOverLay">#75393a3b</color>
+
+   // Hero color them
+    <color name="heroColorPrimary">#ef4135</color>
+    <color name="heroColorPrimaryDark">#d73e34</color>
+    <color name="heroColorAccent">#C6C6C6</color>
+    <color name="heroGrayOverLay">#f3f3f3</color>
+    <color name="heroTextColor">#5c6273</color>
+
+
+</resources>

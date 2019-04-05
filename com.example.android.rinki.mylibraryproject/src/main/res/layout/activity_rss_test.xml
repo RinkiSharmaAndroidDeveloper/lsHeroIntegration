@@ -1,26 +1,584 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f3f3f3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/heroColorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="Customer Details"
+            android:gravity="center"
+            android:textSize="17dp"
+            android:textColor="@color/white"
+            android:elevation="3dp"/>
 
-    <TextView
-        android:id="@+id/detailsText"
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:visibility="gone"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="10dp"
+                        android:text="Service Advisor Name"
+                        android:textAlignment="center"
+                        android:textColor="@color/textDark"
+                        android:textSize="16sp"
+                        android:textStyle="normal|bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/gray_line" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/expectedTimeLayout"
+                            android:visibility="gone">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Expected Delivery : "
+                                android:textColor="@color/textLight"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/expected_delivery_time"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textDark" />
+                        </LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/serviceDone"
+                            android:visibility="gone">
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_toLeftOf="@+id/doneText"
+
+                                android:tint="@color/colorPrimary"
+                                android:layout_marginRight="5dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:id="@+id/doneText"
+                                android:text="Service Completed"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_below="@id/doneText"
+                                android:layout_marginTop="6dp"
+                                android:textSize="12dp"
+                                android:text="Pick bike from service center for delivery"/>
+                        </RelativeLayout>
+                    </FrameLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/remarksLayout">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Remarks : "
+                            android:textColor="@color/textLight"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/advisorRemarks"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textDark" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_margin="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="10dp"
+                            android:paddingEnd="4dp"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:paddingStart="4dp"
+                            android:paddingTop="10dp"
+                            android:text="Customer Details"
+                            android:textAlignment="center"
+                            android:textColor="@color/heroTextColor"
+                            android:textSize="16sp"
+                            android:textStyle="normal|bold" />
+
+                        <ImageView
+                            android:id="@+id/bsd_user_privileged"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="24dp"
+                            android:layout_margin="4dp"
+                            android:visibility="gone"
+                            android:padding="8dp"
+
+ />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/gray_line" />
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Name : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/name"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Mobile : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/mobile"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Pick Address : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/address"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Pick Locality : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/pickup_area"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:layout_margin="8dp"
+                                android:layout_row="4"
+                                android:text="Appointment ID :"
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/appoinment_status"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="DealerName : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/dealer_name"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="DealerCode : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/dealer_code"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="2.2"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Dealer State City : "
+                                android:textColor="@color/heroTextColor"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/dealer_city_state"
+                                android:layout_width="0dp"
+                                android:layout_weight="2.8"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/heroTextColor" />
+                        </LinearLayout>
+
+
+
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/hondaDetailsLayout"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.2"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="Booked Bike Model : "
+                                    android:textColor="@color/heroTextColor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.8"
+                                    android:id="@+id/model"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_margin="8dp"
+                                    android:textColor="@color/heroTextColor" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.2"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="Appointment Date: "
+                                    android:textColor="@color/heroTextColor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.8"
+                                    android:id="@+id/appointment_date"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_margin="8dp"
+                                    android:textColor="@color/heroTextColor" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.2"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="ExShowroomPrice: "
+                                    android:textColor="@color/heroTextColor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.8"
+                                    android:id="@+id/exShowroomPrice"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_margin="8dp"
+                                    android:textColor="@color/heroTextColor" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.2"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="BookingAmount: "
+                                    android:textColor="@color/heroTextColor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.8"
+                                    android:id="@+id/bookingAmount"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:layout_margin="8dp"
+                                    android:textColor="@color/heroTextColor" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="SPONO : "
+                                    android:textColor="@color/heroTextColor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:id="@+id/spoNumber"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:layout_margin="8dp"
+                                    android:textColor="@color/heroTextColor" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <RelativeLayout
+                            android:id="@+id/bs_call_customer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginLeft="16dp"
+                            android:visibility="gone"
+                            android:layout_marginRight="16dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/bs_layout_call_customer_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/white"
+                                android:text="CALL CUSTOMER"
+                                android:textSize="@dimen/textNormal"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="20dip"
-        android:text="Default Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30dip" />
-    <Button
-        android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:background="#000000"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Press to update"/>
-
-</LinearLayout>
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/heroColorPrimaryDark"
+        android:layout_gravity="center" />
+</FrameLayout>
