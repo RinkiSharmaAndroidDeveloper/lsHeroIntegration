@@ -25,7 +25,7 @@ button =findViewById(R.id.updateButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"7406557772");
+             LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MERTYUW123456789");
             }
         });
 

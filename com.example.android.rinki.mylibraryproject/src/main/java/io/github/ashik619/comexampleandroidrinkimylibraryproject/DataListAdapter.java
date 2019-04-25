@@ -1,6 +1,11 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,48 +32,50 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
     private List<DataList> moviesList;
     Context context;
     AsyncResult<DataList> asyncResult_clickPayTm;
-    AsyncResult<String > viewJobCard;
-int steps=3;
+    AsyncResult<String> viewJobCard;
+    int steps = 3;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView Username, userRating, bookingNumber, vinNumber,currentStatus,bikeBookedModel,bikeNumber,appointCreatated1,runnerAssigned2,bikePickupedup3,textView4,textView5,textView6,date,lsAmount;
-        Button otpBtn,PaymentButton;
-        CircleImageView userImg,PhoneBtn;
-        BreadcrumbsView spinner,spiiner1;
+        TextView Username, userRating, bookingNumber, vinNumber, currentStatus, bikeBookedModel, bikeNumber, appointCreatated1, runnerAssigned2, bikePickupedup3, textView4, textView5, textView6, date, lsAmount;
+        Button otpBtn, PaymentButton;
+        CircleImageView userImg, PhoneBtn;
+        BreadcrumbsView spinner, spiiner1;
         LinearLayout linearLayout;
+
         public MyViewHolder(View view) {
             super(view);
-            Username=(TextView) view.findViewById(R.id.name);
-            userRating=(TextView) view.findViewById(R.id.rating);
-            bookingNumber=(TextView) view.findViewById(R.id.booking_txt);
-            vinNumber=(TextView) view.findViewById(R.id.registration_number);
-            lsAmount=(TextView) view.findViewById(R.id.ls_amount);
-            currentStatus=(TextView) view.findViewById(R.id.current_status_number);
-            otpBtn=(Button) view.findViewById(R.id.otp_txt);
-            PaymentButton=(Button) view.findViewById(R.id.payment_btn);
-            userImg=(CircleImageView) view.findViewById(R.id.profile_image);
-            PhoneBtn=(CircleImageView) view.findViewById(R.id.bs_call_customer);
-            spinner=(BreadcrumbsView) view.findViewById(R.id.breadcrumbs);
-            spiiner1=(BreadcrumbsView) view.findViewById(R.id.breadcrumbs1);
-            linearLayout=(LinearLayout) view.findViewById(R.id.view_photos);
+            Username = (TextView) view.findViewById(R.id.name);
+            userRating = (TextView) view.findViewById(R.id.rating);
+            bookingNumber = (TextView) view.findViewById(R.id.booking_txt);
+            vinNumber = (TextView) view.findViewById(R.id.registration_number);
+            lsAmount = (TextView) view.findViewById(R.id.ls_amount);
+            currentStatus = (TextView) view.findViewById(R.id.current_status_number);
+            otpBtn = (Button) view.findViewById(R.id.otp_txt);
+            PaymentButton = (Button) view.findViewById(R.id.payment_btn);
+            userImg = (CircleImageView) view.findViewById(R.id.profile_image);
+            PhoneBtn = (CircleImageView) view.findViewById(R.id.bs_call_customer);
+            spinner = (BreadcrumbsView) view.findViewById(R.id.breadcrumbs);
+            spiiner1 = (BreadcrumbsView) view.findViewById(R.id.breadcrumbs1);
+            linearLayout = (LinearLayout) view.findViewById(R.id.view_photos);
 
-            bikeBookedModel=(TextView) view.findViewById(R.id.model_txt);
-            date=(TextView) view.findViewById(R.id.date);
-            bikeNumber=(TextView) view.findViewById(R.id.bike_number_txt);
-            appointCreatated1=(TextView) view.findViewById(R.id.txt1);
-            runnerAssigned2=(TextView) view.findViewById(R.id.txt2);
-            bikePickupedup3=(TextView) view.findViewById(R.id.txt3);
-            textView4=(TextView) view.findViewById(R.id.txt4);
-            textView5=(TextView) view.findViewById(R.id.txt5);
-            textView6=(TextView) view.findViewById(R.id.txt6);
+            bikeBookedModel = (TextView) view.findViewById(R.id.model_txt);
+            date = (TextView) view.findViewById(R.id.date);
+            bikeNumber = (TextView) view.findViewById(R.id.bike_number_txt);
+            appointCreatated1 = (TextView) view.findViewById(R.id.txt1);
+            runnerAssigned2 = (TextView) view.findViewById(R.id.txt2);
+            bikePickupedup3 = (TextView) view.findViewById(R.id.txt3);
+            textView4 = (TextView) view.findViewById(R.id.txt4);
+            textView5 = (TextView) view.findViewById(R.id.txt5);
+            textView6 = (TextView) view.findViewById(R.id.txt6);
         }
     }
 
 
-    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm,  AsyncResult<String > viewJobCard) {
+    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm, AsyncResult<String> viewJobCard) {
         this.moviesList = moviesList;
         this.context = context;
-        this.asyncResult_clickPayTm=asyncResult_clickPayTm;
-        this.viewJobCard=viewJobCard;
+        this.asyncResult_clickPayTm = asyncResult_clickPayTm;
+        this.viewJobCard = viewJobCard;
     }
 
     @Override
@@ -83,10 +90,30 @@ int steps=3;
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final DataList movie = moviesList.get(position);
 
-       if(movie.getRunnerName()!=null){
-           holder.Username.setText(movie.getRunnerName());
-       }
+        if (movie.getRunnerName() != null) {
+            holder.Username.setText(movie.getRunnerName());
+        }
+        holder.PhoneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                Intent intentCall = new Intent(Intent.ACTION_CALL);
+
+                intentCall.setData(Uri.parse("tel:" +movie.getRunnerMobile()));
+                context.startActivity(intentCall);
+
+    }
+});
 holder.linearLayout.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -101,6 +128,7 @@ holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             holder.PaymentButton.setBackgroundResource(R.drawable.disable_btn);
 
         }
+
   holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -233,6 +261,8 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
         }
 
     }
+
+
 
     @Override
     public int getItemCount() {
