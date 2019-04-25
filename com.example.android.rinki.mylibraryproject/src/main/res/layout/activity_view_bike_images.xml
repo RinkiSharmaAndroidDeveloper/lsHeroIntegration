@@ -119,7 +119,7 @@
             android:layout_marginLeft="3dp"
             android:textColor="@color/black"
             android:layout_marginRight="5dp"
-            android:text="4/4"
+            android:text=""
 
             />
 
@@ -151,7 +151,7 @@
             android:textColor="@color/black"
             android:layout_toRightOf="@+id/booking"
             android:layout_marginRight="5dp"
-            android:text="Paid"
+            android:text=""
 
             />
 
@@ -181,7 +181,7 @@
         android:layout_marginLeft="3dp"
         android:textColor="@color/black"
         android:layout_marginRight="5dp"
-        android:text="4/4"
+        android:text=""
 
         />
     </LinearLayout>
@@ -211,7 +211,7 @@
         android:layout_marginLeft="3dp"
         android:textColor="@color/black"
         android:layout_marginRight="5dp"
-        android:text="4/4"
+        android:text=""
 
         />
     </LinearLayout>
@@ -236,9 +236,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:layout_height="wrap_content">
         <ImageView
             android:layout_width="120dp"
@@ -263,9 +261,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -299,9 +295,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -326,7 +320,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
 
             android:layout_height="wrap_content">
@@ -362,9 +355,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -389,9 +380,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
 
+            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -426,9 +416,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -453,7 +443,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+
             android:layout_marginLeft="20dp"
 
             android:layout_height="wrap_content">
@@ -489,9 +479,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="120dp"
@@ -516,7 +506,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+
             android:layout_marginLeft="20dp"
 
             android:layout_height="wrap_content">

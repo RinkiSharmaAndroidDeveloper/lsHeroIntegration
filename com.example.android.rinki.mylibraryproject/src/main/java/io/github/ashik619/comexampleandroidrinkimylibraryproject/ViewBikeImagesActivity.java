@@ -106,7 +106,7 @@ String id;
                             String bike61 = response.getString("bikePhoto6");
                             String bike71 = response.getString("bikePhoto7");
                             typeOfSerice.setText(typeOfServ);
-                            fuel.setText(fuel1);
+                            fuel.setText(fuel1+"/5");
                             odometer.setText(odometer1);
                             damage.setText(damage1);
                             reciept.setText(reciept1);
