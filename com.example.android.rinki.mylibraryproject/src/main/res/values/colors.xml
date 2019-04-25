@@ -8,6 +8,7 @@
     <color name="whiteOverlay">#bad8e5ec</color>
     <color name="textDark">#fb353131</color>
     <color name="textLight">#ea403b3b</color>
+    <color name="black">#000000</color>
     <color name="gray_line">#a27a7e81</color>
     <color name="serviceDoneColor">#018f35</color>
     <color name="pendingOrange">#f76708</color>
@@ -15,11 +16,13 @@
     <color name="grayOverLay">#75393a3b</color>
 
    // Hero color them
-    <color name="heroColorPrimary">#ef4135</color>
-    <color name="heroColorPrimaryDark">#d73e34</color>
+    <color name="heroColorPrimary">#ff0000</color>
+    <color name="heroColorPrimaryDark">#f18079</color>
     <color name="heroColorAccent">#C6C6C6</color>
     <color name="heroGrayOverLay">#f3f3f3</color>
     <color name="heroTextColor">#5c6273</color>
+    <color name="grayColor">#888888</color>
+    <color name="grayColor_txt">#9b9b9b</color>
 
 
 </resources>

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#efefef"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#efefef"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:layout_gravity="center"
+        android:id="@+id/rr1"
+        android:background="@color/heroColorPrimary"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_up"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:layout_gravity="center|left"
+            android:id="@+id/up_icon"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
+            android:text="Job Card"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/ll1"
+        android:layout_marginLeft="10dp"
+       android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/grayColor"
+            android:id="@+id/booking_date"
+            android:text="Type Of Service: "
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:id="@+id/paid_txt"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/booking"
+            android:layout_marginRight="5dp"
+            android:text="Paid"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/grayColor"
+            android:id="@+id/fuel"
+            android:text="Fuel: "
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:id="@+id/fuel_txt"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_marginRight="5dp"
+            android:text="4/4"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/grayColor"
+            android:id="@+id/odometer"
+            android:text="Odometer: "
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:id="@+id/odometer_txt"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_marginRight="5dp"
+            android:text="4/4"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/grayColor"
+            android:id="@+id/damage"
+            android:text="Damage: "
+            />
+        <TextView
+
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:id="@+id/damage_txt"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/booking"
+            android:layout_marginRight="5dp"
+            android:text="Paid"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grayColor"
+        android:id="@+id/reciept"
+        android:text="Receipt(Not Collected): "
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="14sp"
+        android:id="@+id/reciept_txt"
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="5dp"
+        android:text="4/4"
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/grayColor"
+        android:id="@+id/customer"
+        android:text="Customer Voice: "
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="14sp"
+        android:id="@+id/customer_txt"
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/black"
+        android:layout_marginRight="5dp"
+        android:text="4/4"
+
+        />
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/heroColorPrimaryDark"
+        android:layout_gravity="center|top" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="120dp"
+            android:id="@+id/bike1_img"
+            android:src="@drawable/not_found_image"
+            android:layout_height="120dp" />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:id="@+id/bike"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_marginRight="5dp"
+            android:text="Bike Photo 1:"
+
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike2_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike2"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 2:"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike3_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike3"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 3:"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike4_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike4"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 4:"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike5_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike5"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 5:"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike6_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike6"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 6:"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/bike7_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/bike7"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Bike Photo 7:"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/final_bill_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/final_bill"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Final bill:"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/rc_copy_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/rc_copy"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Rc Copy:"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="120dp"
+                android:id="@+id/insurance_img"
+                android:src="@drawable/not_found_image"
+                android:layout_height="120dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                android:id="@+id/insurance"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Insurance Copy:"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

@@ -2,34 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#f3f3f3"
+    android:background="#efefef"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:layout_gravity="center"
         android:id="@+id/rr1"
-        android:background="@color/heroColorPrimary">
+        android:background="@color/heroColorPrimary"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_up"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center|left"
+            android:id="@+id/up_icon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:text="Customer Details"
-            android:gravity="center"
-            android:textSize="17dp"
-            android:textColor="@color/white"
-            android:elevation="3dp"/>
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffffff"
+            android:text="All Bookings"
+            />
 
-    </RelativeLayout>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
         android:layout_below="@+id/rr1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:id="@+id/error_message"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:textColor="@color/heroTextColor"
+        android:text="No Data"
+        />
 
     <ProgressBar
         android:id="@+id/progress"

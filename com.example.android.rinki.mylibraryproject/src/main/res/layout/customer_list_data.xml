@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:background="#ffffff"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:id="@+id/rr1"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="110dp"
+android:id="@+id/otp_txt"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:background="@drawable/background_btn"
+        android:layout_marginLeft="10dp"
+        android:drawableRight="@drawable/check"
+        android:paddingRight="5dp"
+        android:text="OTP 0909"
+        android:drawablePadding="5dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/white"
+        android:layout_height="30dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:id="@+id/ll1"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/grayColor"
+        android:id="@+id/booking"
+        android:text="Booking No. "
+        />
+    <TextView
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="12sp"
+        android:id="@+id/booking_txt"
+android:layout_marginLeft="3dp"
+        android:textColor="@color/black"
+android:layout_toRightOf="@+id/booking"
+        android:layout_marginRight="5dp"
+        android:text="LS-2082-43578-2688532409"
+
+        />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+      android:layout_marginTop="15dp"
+        android:layout_below="@+id/ll1"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/grayColor"
+            android:id="@+id/booking_date"
+            android:text="Booking Date"
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            android:id="@+id/date"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/booking"
+            android:layout_marginRight="5dp"
+            android:text="LS-2082-43578-2688532409"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/rr1"
+        android:layout_marginLeft="10dp"
+
+         android:id="@+id/rr2"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:id="@+id/model_txt"
+            android:lineSpacingExtra="2.5sp"
+            android:text="Honda"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/bike_number_txt"
+            android:textColor="@color/black"
+          android:layout_below="@+id/model_txt"
+            android:lineSpacingExtra="2.5sp"
+            android:text="CBR 250R Matte Black"
+            />
+
+
+    </RelativeLayout>
+    <io.victoralbertos.breadcumbs_view.BreadcrumbsView
+        android:id="@+id/breadcrumbs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:numberOfSteps="3"
+android:layout_marginTop="5dp"
+android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:visitedStepBorderDotColor="@color/heroColorPrimary"
+        app:visitedStepFillDotColor="@color/heroColorPrimary"
+        app:nextStepBorderDotColor="@color/heroColorPrimaryDark"
+        app:nextStepFillDotColor="@color/heroColorPrimaryDark"
+        app:visitedStepSeparatorColor="@color/heroColorPrimaryDark"
+        app:nextStepSeparatorColor="@color/heroColorPrimaryDark"
+        app:radiusDot="5dp"
+        app:sizeDotBorder="2dp"
+        app:heightSeparator="1dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:weightSum="3"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#9b9b9b"
+            android:layout_weight="1"
+            android:id="@+id/txt1"
+            android:layout_marginLeft="10dp"
+            android:text="Appointment Created"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#9b9b9b"
+            android:layout_weight="1"
+            android:id="@+id/txt2"
+            android:layout_marginLeft="8dp"
+            android:text="Runner Assigned"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:id="@+id/txt3"
+            android:textColor="#9b9b9b"
+            android:layout_marginRight="10dp"
+            android:text="Bike Picked Up"
+            android:layout_gravity="right"
+            android:gravity="right"
+            />
+
+
+    </LinearLayout>
+    <io.victoralbertos.breadcumbs_view.BreadcrumbsView
+        android:id="@+id/breadcrumbs1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:numberOfSteps="3"
+android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:visitedStepBorderDotColor="@color/heroColorPrimary"
+        app:visitedStepFillDotColor="@color/heroColorPrimary"
+        app:nextStepBorderDotColor="@color/heroColorPrimaryDark"
+        app:nextStepFillDotColor="@color/heroColorPrimaryDark"
+        app:visitedStepSeparatorColor="@color/heroColorPrimaryDark"
+        app:nextStepSeparatorColor="@color/heroColorPrimaryDark"
+        app:radiusDot="5dp"
+        app:sizeDotBorder="2dp"
+        app:heightSeparator="1dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:weightSum="3"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#9b9b9b"
+          android:layout_weight="1"
+            android:id="@+id/txt4"
+            android:layout_marginLeft="10dp"
+            android:text="Bike Service In-Progress"
+            />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/txt5"
+            android:layout_weight="1"
+            android:textColor="#9b9b9b"
+
+            android:layout_marginLeft="10dp"
+            android:text="Bike Picked For
+Delivery"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/txt6"
+            android:layout_weight="1"
+            android:textColor="#9b9b9b"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="Bike Delivered"
+            />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#9b9b9b"
+            android:text="VIN Number"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#7d7d7d"
+            android:id="@+id/registration_number"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:text="ls-12345"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#9b9b9b"
+            android:text="Amount"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#7d7d7d"
+            android:id="@+id/current_status_number"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/currency_inr"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:text="Current Status"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#9b9b9b"
+            android:text="LsAmount"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#7d7d7d"
+            android:id="@+id/ls_amount"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/currency_inr"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:text="Current Status"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:background="@drawable/gray_circuler_back"
+            android:layout_marginTop="10dp"
+
+            android:layout_marginLeft="10dp"
+            android:layout_height="50dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="50dp"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_height="50dp"
+                android:src="@color/heroColorPrimary"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#151515"
+                android:padding="5dp"
+                android:layout_toRightOf="@+id/profile_image"
+                android:text="Bane Doe"
+                android:id="@+id/name"
+                />
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/bs_call_customer"
+                android:layout_width="40dp"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/name"
+                android:layout_height="40dp"
+                android:background="@drawable/gray_circuler_back"
+                android:src="@drawable/phone_in_talk"
+
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/profile_image"
+                android:layout_below="@+id/name"
+                android:padding="2dp"
+                android:id="@+id/star"
+                android:src="@drawable/star"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:padding="2dp"
+                android:textColor="#ff0000"
+                android:layout_below="@+id/name"
+                android:layout_toRightOf="@+id/star"
+                android:text="4.06 "
+                android:id="@+id/rating"
+                />
+        </RelativeLayout>
+        <Button
+            android:layout_width="110dp"
+            android:background="@drawable/background_btn"
+            android:layout_marginLeft="10dp"
+android:id="@+id/payment_btn"
+            android:paddingRight="5dp"
+            android:text="Payment"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="5dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:layout_height="40dp" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/heroColorPrimary"
+        android:orientation="horizontal"
+
+
+        android:id="@+id/view_photos"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="View Job card"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

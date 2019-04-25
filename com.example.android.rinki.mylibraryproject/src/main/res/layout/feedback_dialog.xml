@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+android:background="#ffffff"
+
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/heroTextColor"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="#3c9104"
+    android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:text="Transaction Successful"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/heroTextColor"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:text="Help us serve you better by rating us"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content" />
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_dialog"
+        android:scrollbars="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_width="110dp"
+
+        android:background="@drawable/feedback_button"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/submit"
+        android:paddingRight="5dp"
+        android:text="Submit"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:layout_height="40dp" />
+</LinearLayout>
