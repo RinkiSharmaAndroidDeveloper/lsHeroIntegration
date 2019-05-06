@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/heroColorPrimary"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Drop Tracking "
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/no_data_found"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/image_view"
+        android:textColor="@color/grayColor_txt"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
+
+
+</LinearLayout>

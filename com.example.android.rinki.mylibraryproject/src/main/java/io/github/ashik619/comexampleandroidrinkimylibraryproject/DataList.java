@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by dilip on 5/4/19.
  */
 
-public class DataList {
+public class DataList implements Parcelable{
 
 
     String customerName1, email, user_picture, bikeBrandname, id, userId, createdBy_Id, organicId, pcId, bikeBrand, bikeModel, bikeNo, pickAddress, dropAddress, locality, dateTime, serviceTypeId, assistanceTypeId, assistanceType, serviceCenter, typeOfService, customerType, status, ACRId, cancelRemarks, lsRemarks, scStatus, final_quotation, discounted_amount, assistanceAmount, lsAmount, chassisNo, engineNO, SPONO, dealerCode, availHMSICredit, typeOfPD, amcUser, privilegeId, cityId, couponId, teleCallerTCID, CREID, activeStatus, rating, runnerId, runnerName, runnerPicture, runnerMobile, bookingNo, mobileNo, paymentStatus;
@@ -68,6 +68,73 @@ public class DataList {
         this.mobileNo = mobileNo;
         this.paymentStatus = paymentStatus;
     }
+
+    protected DataList(Parcel in) {
+        customerName1 = in.readString();
+        email = in.readString();
+        user_picture = in.readString();
+        bikeBrandname = in.readString();
+        id = in.readString();
+        userId = in.readString();
+        createdBy_Id = in.readString();
+        organicId = in.readString();
+        pcId = in.readString();
+        bikeBrand = in.readString();
+        bikeModel = in.readString();
+        bikeNo = in.readString();
+        pickAddress = in.readString();
+        dropAddress = in.readString();
+        locality = in.readString();
+        dateTime = in.readString();
+        serviceTypeId = in.readString();
+        assistanceTypeId = in.readString();
+        assistanceType = in.readString();
+        serviceCenter = in.readString();
+        typeOfService = in.readString();
+        customerType = in.readString();
+        status = in.readString();
+        ACRId = in.readString();
+        cancelRemarks = in.readString();
+        lsRemarks = in.readString();
+        scStatus = in.readString();
+        final_quotation = in.readString();
+        discounted_amount = in.readString();
+        assistanceAmount = in.readString();
+        lsAmount = in.readString();
+        chassisNo = in.readString();
+        engineNO = in.readString();
+        SPONO = in.readString();
+        dealerCode = in.readString();
+        availHMSICredit = in.readString();
+        typeOfPD = in.readString();
+        amcUser = in.readString();
+        privilegeId = in.readString();
+        cityId = in.readString();
+        couponId = in.readString();
+        teleCallerTCID = in.readString();
+        CREID = in.readString();
+        activeStatus = in.readString();
+        rating = in.readString();
+        runnerId = in.readString();
+        runnerName = in.readString();
+        runnerPicture = in.readString();
+        runnerMobile = in.readString();
+        bookingNo = in.readString();
+        mobileNo = in.readString();
+        paymentStatus = in.readString();
+    }
+
+    public static final Creator<DataList> CREATOR = new Creator<DataList>() {
+        @Override
+        public DataList createFromParcel(Parcel in) {
+            return new DataList(in);
+        }
+
+        @Override
+        public DataList[] newArray(int size) {
+            return new DataList[size];
+        }
+    };
 
     public String getCustomerName1() {
         return customerName1;
@@ -483,5 +550,66 @@ public class DataList {
 
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(customerName1);
+        dest.writeString(email);
+        dest.writeString(user_picture);
+        dest.writeString(bikeBrandname);
+        dest.writeString(id);
+        dest.writeString(userId);
+        dest.writeString(createdBy_Id);
+        dest.writeString(organicId);
+        dest.writeString(pcId);
+        dest.writeString(bikeBrand);
+        dest.writeString(bikeModel);
+        dest.writeString(bikeNo);
+        dest.writeString(pickAddress);
+        dest.writeString(dropAddress);
+        dest.writeString(locality);
+        dest.writeString(dateTime);
+        dest.writeString(serviceTypeId);
+        dest.writeString(assistanceTypeId);
+        dest.writeString(assistanceType);
+        dest.writeString(serviceCenter);
+        dest.writeString(typeOfService);
+        dest.writeString(customerType);
+        dest.writeString(status);
+        dest.writeString(ACRId);
+        dest.writeString(cancelRemarks);
+        dest.writeString(lsRemarks);
+        dest.writeString(scStatus);
+        dest.writeString(final_quotation);
+        dest.writeString(discounted_amount);
+        dest.writeString(assistanceAmount);
+        dest.writeString(lsAmount);
+        dest.writeString(chassisNo);
+        dest.writeString(engineNO);
+        dest.writeString(SPONO);
+        dest.writeString(dealerCode);
+        dest.writeString(availHMSICredit);
+        dest.writeString(typeOfPD);
+        dest.writeString(amcUser);
+        dest.writeString(privilegeId);
+        dest.writeString(cityId);
+        dest.writeString(couponId);
+        dest.writeString(teleCallerTCID);
+        dest.writeString(CREID);
+        dest.writeString(activeStatus);
+        dest.writeString(rating);
+        dest.writeString(runnerId);
+        dest.writeString(runnerName);
+        dest.writeString(runnerPicture);
+        dest.writeString(runnerMobile);
+        dest.writeString(bookingNo);
+        dest.writeString(mobileNo);
+        dest.writeString(paymentStatus);
     }
 }

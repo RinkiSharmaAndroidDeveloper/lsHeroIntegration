@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,14 +35,14 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
     AsyncResult<DataList> asyncResult_clickPayTm;
     AsyncResult<String> viewJobCard;
     int steps = 3;
-
+    AsyncResult<DataList> goOnMap;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView Username, userRating, bookingNumber, vinNumber, currentStatus, bikeBookedModel, bikeNumber, appointCreatated1, runnerAssigned2, bikePickupedup3, textView4, textView5, textView6, date, lsAmount;
         Button otpBtn, PaymentButton;
         CircleImageView userImg, PhoneBtn;
-        BreadcrumbsView spinner, spiiner1;
+        LinearLayout spinner, spiiner1;
         LinearLayout linearLayout;
-
+      ImageView google_map_image;
         public MyViewHolder(View view) {
             super(view);
             Username = (TextView) view.findViewById(R.id.name);
@@ -51,11 +52,12 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             lsAmount = (TextView) view.findViewById(R.id.ls_amount);
             currentStatus = (TextView) view.findViewById(R.id.current_status_number);
             otpBtn = (Button) view.findViewById(R.id.otp_txt);
+            google_map_image = (ImageView) view.findViewById(R.id.google_map);
             PaymentButton = (Button) view.findViewById(R.id.payment_btn);
             userImg = (CircleImageView) view.findViewById(R.id.profile_image);
             PhoneBtn = (CircleImageView) view.findViewById(R.id.bs_call_customer);
-            spinner = (BreadcrumbsView) view.findViewById(R.id.breadcrumbs);
-            spiiner1 = (BreadcrumbsView) view.findViewById(R.id.breadcrumbs1);
+            spinner = (LinearLayout) view.findViewById(R.id.breadcrumbs);
+            spiiner1 = (LinearLayout) view.findViewById(R.id.breadcrumbs1);
             linearLayout = (LinearLayout) view.findViewById(R.id.view_photos);
 
             bikeBookedModel = (TextView) view.findViewById(R.id.model_txt);
@@ -71,11 +73,12 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
     }
 
 
-    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm, AsyncResult<String> viewJobCard) {
+    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm, AsyncResult<String> viewJobCard,AsyncResult<DataList> goOnMap ) {
         this.moviesList = moviesList;
         this.context = context;
         this.asyncResult_clickPayTm = asyncResult_clickPayTm;
         this.viewJobCard = viewJobCard;
+        this.goOnMap=goOnMap;
     }
 
     @Override
@@ -96,7 +99,10 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         holder.PhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+if(movie.getRunnerMobile().length()<10){
+    Toast.makeText(context, "Invalid Number", Toast.LENGTH_LONG).show();
+    return;
+}
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
@@ -145,7 +151,12 @@ holder.linearLayout.setOnClickListener(new View.OnClickListener() {
 
       }
   });
-
+holder.google_map_image.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        goOnMap.success(moviesList.get(position));
+    }
+});
 
 if(movie.getChassisNo()!=null){
     holder.vinNumber.setText(movie.getChassisNo());
@@ -176,7 +187,7 @@ if(movie.getBikeBrandname()!=null){
 
 if(moviesList.get(position).getStatus().equals("Appointment Created"))
 {
-            holder.spinner.setCurrentStep(1);
+            //holder.spinner.setCurrentStep(1);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.spiiner1.setVisibility(View.GONE);
             holder.runnerAssigned2.setVisibility(View.GONE);
@@ -189,7 +200,7 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
         if(moviesList.get(position).getStatus().equals("Runner Assigned")){
             holder.spiiner1.setVisibility(View.GONE);
 
-            holder.spinner.setCurrentStep(2);
+          //  holder.spinner.setCurrentStep(2);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
             holder.bikePickupedup3.setVisibility(View.GONE);
@@ -203,7 +214,7 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
 
             holder.spiiner1.setVisibility(View.GONE);
 
-            holder.spinner.setCurrentStep(3);
+          //  holder.spinner.setCurrentStep(3);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
             holder.bikePickupedup3.setVisibility(View.VISIBLE);
@@ -214,8 +225,8 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
 
         if(moviesList.get(position).getStatus().equals("Bike Service In Progress")){
             holder.spiiner1.setVisibility(View.VISIBLE);
-            holder.spiiner1.setCurrentStep(1);
-            holder.spinner.setCurrentStep(3);
+           // holder.spiiner1.setCurrentStep(1);
+            //holder.spinner.setCurrentStep(3);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
             holder.bikePickupedup3.setVisibility(View.VISIBLE);
@@ -224,8 +235,8 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView6.setVisibility(View.GONE);
         }
         if(moviesList.get(position).getStatus().equals("Bike Picked For Delivery")){
-            holder.spinner.setCurrentStep(3);
-            holder.spiiner1.setCurrentStep(2);
+          //  holder.spinner.setCurrentStep(3);
+           // holder.spiiner1.setCurrentStep(2);
             holder.spiiner1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
@@ -236,8 +247,8 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
         }
 
         if(moviesList.get(position).getStatus().equals("Bike Delivered")){
-            holder.spinner.setCurrentStep(3);
-            holder.spiiner1.setCurrentStep(3);
+        /*    holder.spinner.setCurrentStep(3);
+            holder.spiiner1.setCurrentStep(3);*/
             holder.spiiner1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);

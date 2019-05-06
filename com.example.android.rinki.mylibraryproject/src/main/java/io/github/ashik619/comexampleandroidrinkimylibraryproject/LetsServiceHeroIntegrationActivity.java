@@ -24,6 +24,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implements PaytmPaymentTransactionCallback {
@@ -59,7 +61,7 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
     List<QuestionsData> questionsDataList;
     ImageView imageView;
   Dialog   dialog;
-
+String headerToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,7 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
         answersDataList=new ArrayList<>();
        // dialog = new Dialog(this);
         dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard);
+        mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard,goOnMap );
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
@@ -103,6 +105,19 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
         public void success(DataList dataList) {
 
             getCheckSumKey(dataList);
+        }
+        @Override
+        public void error(String error) {
+
+        }
+    };
+ AsyncResult<DataList> goOnMap  = new AsyncResult<DataList>()  {
+        @Override
+        public void success(DataList dataList) {
+
+         Intent intent =new Intent(LetsServiceHeroIntegrationActivity.this,MapActivity.class);
+         intent.putExtra("dataList",dataList);
+            startActivity(intent);
         }
         @Override
         public void error(String error) {
@@ -221,8 +236,10 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
         {
             listData.clear();
         }
+        headerToken =generateHeader("503");
         //String URL = Utils.Base_url+mobile;
-        String URL =Utils.Base_url+Utils.Fetch_List+id+"/503/14229915560960046";
+     String URL =Utils.Base_url+Utils.Fetch_List+id+"/503/14229915560960046";
+  /*      String URL ="http://stagging.us-west-2.elasticbeanstalk.com/"+Utils.Fetch_List+"MERTYUI123456789"+"/503/14229915560960046";*/
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
@@ -310,12 +327,24 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
                     }
                 },
 
-                new Response.ErrorListener() {
+
+                new Response.ErrorListener()
+                {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error.toString());
                         progress.setVisibility(View.GONE);
                     }
-                });
+                }
+        ) /*{
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Header-Token", headerToken);
+                return params;
+            }
+        }*/;
 
         queue.add(jsObjRequest);
 
@@ -526,6 +555,7 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
         progress.setVisibility(View.VISIBLE);
 
         String token =generateHash("3");
+        final String headTokn =generateHash("3");
         String URL = Utils.Base_url+Utils.getFeedbackQuestions+"3/"+token;
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
@@ -560,88 +590,125 @@ public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implem
                     }
                 },
 
-                new Response.ErrorListener() {
+                new Response.ErrorListener()
+                {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error.toString());
                         progress.setVisibility(View.GONE);
                     }
-                });
+                }
+        ) /*{
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Header-Token", headTokn);
+                return params;
+            }
+        }*/;
 
         queue.add(jsObjRequest);
     }
 
 
-     private boolean submitFeedBackQuestion(List<AnswersData> answersDataList){
-        RequestQueue queue = null;
+     private boolean submitFeedBackQuestion(List<AnswersData> answersDataList) {
+         RequestQueue queue = null;
 
-        queue = Volley.newRequestQueue(this);
-        progress.setVisibility(View.VISIBLE);
+         queue = Volley.newRequestQueue(this);
+         progress.setVisibility(View.VISIBLE);
 
-         JSONArray array=new JSONArray();
+         JSONArray array = new JSONArray();
 
-        for (int i=0;i<answersDataList.size();i++){
-            JSONObject obj=new JSONObject();
-            try {
-                obj.put("question",answersDataList.get(i).getQuestion());
-                obj.put("rating",answersDataList.get(i).getRating());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            array.put(obj);
-        }
-         JSONObject jsonObject =new JSONObject();
+         for (int i = 0; i < answersDataList.size(); i++) {
+             JSONObject obj = new JSONObject();
+             try {
+                 obj.put("question", answersDataList.get(i).getQuestion());
+                 obj.put("rating", answersDataList.get(i).getRating());
+             } catch (JSONException e) {
+                 e.printStackTrace();
+             }
+             array.put(obj);
+         }
+         JSONObject jsonObject = new JSONObject();
          try {
-             jsonObject.put("userId",userId);
-             jsonObject.put("apptId",aaptId);
-             jsonObject.put("privilageId",privilegedId);
-             jsonObject.put("feedback",array);
+             jsonObject.put("userId", userId);
+             jsonObject.put("apptId", aaptId);
+             jsonObject.put("privilageId", privilegedId);
+             jsonObject.put("feedback", array);
          } catch (JSONException e) {
              e.printStackTrace();
          }
 
 
-        String token =generateHash("3");
+         String token = generateHash("3");
+         final String headTokn =generateHeader("3");
+         String URL = Utils.Base_url + Utils.sendFeedBack + "3/" + token;
 
-        String URL = Utils.Base_url+Utils.sendFeedBack+"3/"+token;
+         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject,
+                 new Response.Listener<JSONObject>() {
+                     @Override
+                     public void onResponse(JSONObject response) {
+                         System.out.println(response);
+                         progress.setVisibility(View.GONE);
+                         Log.e("Response", response.toString());
+                         String responsemessage = null;
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println(response);
-                        progress.setVisibility(View.GONE);
-                        Log.e("Response", response.toString());
-                        String responsemessage = null;
-
-                       try {
-                            String success = response.getString("success");
-                            String  message = response.getString("message");
-                            if(success.equals("true")) {
-                                dialog.dismiss();
-                                getAuthenticateLogin(id);
-                                Toast.makeText(LetsServiceHeroIntegrationActivity.this, message, Toast.LENGTH_LONG).show();
-                            }else{
-                                 isFeedbackFilled=false;
-                                Toast.makeText(LetsServiceHeroIntegrationActivity.this, message, Toast.LENGTH_LONG).show();
-                            }
+                         try {
+                             String success = response.getString("success");
+                             String message = response.getString("message");
+                             if (success.equals("true")) {
+                                 dialog.dismiss();
+                                 getAuthenticateLogin(id);
+                                 Toast.makeText(LetsServiceHeroIntegrationActivity.this, message, Toast.LENGTH_LONG).show();
+                             } else {
+                                 isFeedbackFilled = false;
+                                 Toast.makeText(LetsServiceHeroIntegrationActivity.this, message, Toast.LENGTH_LONG).show();
+                             }
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
+                         } catch (JSONException e) {
+                             e.printStackTrace();
+                         }
+                     }
+                 },
 
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progress.setVisibility(View.GONE);
-                    }
-                });
+                 new Response.ErrorListener()
+                 {
+                     @Override
+                     public void onErrorResponse(VolleyError error) {
+                         // TODO Auto-generated method stub
+                         Log.d("ERROR","error => "+error.toString());
+                         progress.setVisibility(View.GONE);
+                     }
+                 }
+         ) /*{
+             @Override
+             public Map<String, String> getHeaders() throws AuthFailureError {
+                 Map<String, String>  params = new HashMap<String, String>();
+                 params.put("Header-Token", headTokn);
+                 return params;
+             }
+         }*/;
+    /*
 
-        queue.add(jsObjRequest);
-        return isFeedbackFilled;
+
+
+         */
+         queue.add(jsObjRequest);
+         return isFeedbackFilled;
+     }
+    public String generateHeader(String id){
+        String str = id+"LsSalesHeader";
+        long hash = 0;
+        for (int i = 0; i < str.length(); i++){
+            char character = str.charAt(i);
+            int ascii = (int) character;
+            hash = ((hash * 8)-hash)+ascii;
+        }
+        return hash+"";
     }
+     //LsSalesHeader
 
    /* @Override
     public void onStart()

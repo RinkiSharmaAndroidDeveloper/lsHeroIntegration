@@ -7,14 +7,34 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.
+   READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <permission
+        android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"/>
     <application>
-        <activity android:name=".LetsServiceHeroIntegrationActivity"></activity>
+        <activity android:name=".LetsServiceHeroIntegrationActivity" />
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".ViewBikeImagesActivity"></activity>
+        <activity android:name=".ViewBikeImagesActivity" />
+        <activity android:name=".MapActivity">
+
+        </activity>
+    <!--   <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDLz0SEeNNUVc9kCWGVPflYaTCOrsCl-K0" />-->
+
+           <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAyjEwKCLpCMA2CFFy0JDn2D9YP6d6kK64" />
     </application>
 
 </manifest>

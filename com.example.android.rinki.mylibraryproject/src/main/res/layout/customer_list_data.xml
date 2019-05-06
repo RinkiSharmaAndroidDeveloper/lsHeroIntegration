@@ -124,7 +124,7 @@ android:layout_toRightOf="@+id/booking"
 
 
     </RelativeLayout>
-    <io.victoralbertos.breadcumbs_view.BreadcrumbsView
+   <!-- <io.victoralbertos.breadcumbs_view.BreadcrumbsView
         android:id="@+id/breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,7 +140,72 @@ android:layout_marginLeft="10dp"
         app:nextStepSeparatorColor="@color/heroColorPrimaryDark"
         app:radiusDot="5dp"
         app:sizeDotBorder="2dp"
-        app:heightSeparator="1dp"/>
+        app:heightSeparator="1dp"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/breadcrumbs"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -183,7 +248,7 @@ android:layout_marginLeft="10dp"
 
 
     </LinearLayout>
-    <io.victoralbertos.breadcumbs_view.BreadcrumbsView
+<!--    <io.victoralbertos.breadcumbs_view.BreadcrumbsView
         android:id="@+id/breadcrumbs1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -199,7 +264,71 @@ android:layout_marginTop="10dp"
         app:nextStepSeparatorColor="@color/heroColorPrimaryDark"
         app:radiusDot="5dp"
         app:sizeDotBorder="2dp"
-        app:heightSeparator="1dp"/>
+        app:heightSeparator="1dp"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/breadcrumbs1"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center|top"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:padding="5dp"
+                android:background="@drawable/runner_test"
+                android:layout_height="15dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/heroColorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="1dp"></View>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -321,6 +450,23 @@ Delivery"
             android:text="Current Status"
             />
     </RelativeLayout>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/google_map"
+        android:src="@drawable/track_runner_icon"
+        android:layout_height="40dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center|left"
+        android:textColor="@color/textDark"
+        android:text="Track Runner"
+        />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginBottom="10dp"
