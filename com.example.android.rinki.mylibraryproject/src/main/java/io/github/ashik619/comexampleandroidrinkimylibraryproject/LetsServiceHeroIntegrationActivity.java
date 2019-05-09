@@ -71,7 +71,7 @@ String headerToken;
        Intent intent =getIntent();
       if(intent!=null){
             id=intent.getStringExtra("id");
-          getAuthenticateLogin(id);
+            getAuthenticateLogin(id);
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -79,7 +79,7 @@ String headerToken;
         imageView = (ImageView) findViewById(R.id.up_icon);
         listData=new ArrayList<>();
         questionsDataList=new ArrayList<>();
-        answersDataList=new ArrayList<>();
+        answersDataList = new ArrayList<>();
        // dialog = new Dialog(this);
         dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard,goOnMap );
@@ -337,14 +337,14 @@ String headerToken;
                         progress.setVisibility(View.GONE);
                     }
                 }
-        ) /*{
+        ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("Header-Token", headerToken);
                 return params;
             }
-        }*/;
+        };
 
         queue.add(jsObjRequest);
 
@@ -599,14 +599,14 @@ String headerToken;
                         progress.setVisibility(View.GONE);
                     }
                 }
-        ) /*{
+        ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("Header-Token", headTokn);
                 return params;
             }
-        }*/;
+        };
 
         queue.add(jsObjRequest);
     }
@@ -682,14 +682,14 @@ String headerToken;
                          progress.setVisibility(View.GONE);
                      }
                  }
-         ) /*{
+         ) {
              @Override
              public Map<String, String> getHeaders() throws AuthFailureError {
                  Map<String, String>  params = new HashMap<String, String>();
                  params.put("Header-Token", headTokn);
                  return params;
              }
-         }*/;
+         };
     /*
 
 
