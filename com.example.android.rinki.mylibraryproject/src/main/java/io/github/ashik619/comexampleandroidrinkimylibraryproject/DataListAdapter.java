@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.victoralbertos.breadcumbs_view.BreadcrumbsView;
+
 
 /**
  * Created by dilip on 5/4/19.
