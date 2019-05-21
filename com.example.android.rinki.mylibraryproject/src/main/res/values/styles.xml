@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
 
-    <style name="MyTheme" parent="android:Theme.DeviceDefault.NoActionBar">
+    <style name="MyTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTitleSize">0dp</item>
     </style>
