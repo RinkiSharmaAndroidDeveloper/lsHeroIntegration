@@ -1,12 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
-
+<!--    &lt;!&ndash; Base application theme. &ndash;&gt;<style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+</style>
+  -->
     <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowTitleSize">0dp</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
-    <style name="CircularProgress" parent="android:Theme.DeviceDefault">
+    <style name="CircularProgress" parent="android:Theme.DeviceDefault.Light.NoActionBar">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
@@ -21,8 +26,14 @@
         <item name="colorControlNormal">@color/grayColor</item>
         <item name="colorControlActivated">@color/heroColorPrimary</item>
     </style>
-    <style name="AppTheme.NoActionBar">
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+  <!--  <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">false</item>
     </style>
+-->
+
 </resources>

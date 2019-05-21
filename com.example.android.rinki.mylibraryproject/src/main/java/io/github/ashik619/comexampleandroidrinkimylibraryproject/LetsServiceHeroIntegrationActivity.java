@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,7 +68,8 @@ String headerToken;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_rss_test);
-
+       /* ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();*/
         progress=findViewById(R.id.progress);
        Intent intent =getIntent();
       if(intent!=null){
