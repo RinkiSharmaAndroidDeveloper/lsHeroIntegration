@@ -1,5 +1,6 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewBikeImagesActivity extends AppCompatActivity {
+public class ViewBikeImagesActivity extends Activity {
 TextView typeOfSerice,fuel,damage,odometer,reciept,customervoice;
 ImageView bike1,bike2,bike3,bike4,bike5,bike6,bike7,rcCopy,insuranceCopy,finalbill;
 ProgressBar progressBar;

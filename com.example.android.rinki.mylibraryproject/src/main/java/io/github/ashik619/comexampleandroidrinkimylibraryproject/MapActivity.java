@@ -1,5 +1,6 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends Activity {
     DataList dataList;
     ProgressBar progressBar;
     List<LatLng> pickupOnlyDataList;

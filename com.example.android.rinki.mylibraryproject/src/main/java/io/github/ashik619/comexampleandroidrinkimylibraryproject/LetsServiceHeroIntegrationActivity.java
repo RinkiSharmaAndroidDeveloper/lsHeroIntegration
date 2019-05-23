@@ -1,6 +1,7 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class LetsServiceHeroIntegrationActivity extends AppCompatActivity implements PaytmPaymentTransactionCallback {
+public class LetsServiceHeroIntegrationActivity extends Activity implements PaytmPaymentTransactionCallback {
     String id;
     RecyclerView recyclerView;
     ProgressBar progress;

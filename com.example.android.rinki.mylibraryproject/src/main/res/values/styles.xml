@@ -5,13 +5,20 @@
     <item name="android:windowNoTitle">true</item>
 </style>
   -->
-    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="AppTheme" parent="@style/_AppTheme"/>
+
+    <style name="_AppTheme" parent="android:Theme.Holo.Light">
+
+
     </style>
-    <style name="CircularProgress" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+
+    <!--   <style name="AppTheme" parent="android:Theme.Holo.Light">
+        &lt;!&ndash;   <item name="windowNoTitle">true</item>
+           <item name="windowActionBar">false</item>
+           <item name="android:windowFullscreen">true</item>
+           <item name="android:windowContentOverlay">@null</item>&ndash;&gt;
+       </style>-->
+    <style name="CircularProgress" parent="android:Theme.Holo.Light">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 

@@ -19,7 +19,8 @@
         android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.barcodelibrary.permission.MAPS_RECEIVE"/>
     <application>
-        <activity android:name=".LetsServiceHeroIntegrationActivity" />
+        <activity android:name=".LetsServiceHeroIntegrationActivity"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"/>
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
@@ -28,8 +29,10 @@
 
           />
         <activity android:name=".ViewBikeImagesActivity"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
           />
         <activity android:name=".MapActivity"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
           >
 
         </activity>

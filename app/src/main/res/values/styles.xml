@@ -1,15 +1,16 @@
 <resources>
 
-    <!-- Base application theme. -->
-<!--    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+<!--    &lt;!&ndash; Base application theme. &ndash;&gt;
+  <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
 
     </style>-->
-    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+  <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
 
     </style>
+
+
 </resources>

@@ -2,6 +2,7 @@ package io.github.ashik619.mylibraryproject;
 
 
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ import io.github.ashik619.comexampleandroidrinkimylibraryproject.LetsServiceHero
 import io.github.ashik619.comexampleandroidrinkimylibraryproject.MapActivity;
 
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends Activity implements
         OnItemSelectedListener {
 TextView textView;
 Button button;
