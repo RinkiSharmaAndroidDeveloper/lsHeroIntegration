@@ -33,7 +33,7 @@ button =findViewById(R.id.updateButton);
 
         /* LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration();
           rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,"MBLJFW012H4E11616","2019-06-11","14:00");*/
-                LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLJFW016J4D04588");
+                LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLJFW016J4D04588","AIzaSyAyjEwKCLpCMA2CFFy0JDn2D9YP6d6kK64");
 
 
             }

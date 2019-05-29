@@ -30,14 +30,16 @@ import java.util.Map;
 
 public class LetsServiceHeroIntegration {
 
-    String vinNumber,bookingSlot,bookingDate;
+    String vinNumber,bookingSlot,bookingDate,googleApi;
     Context context;
     ProgressBar progressBar;
-    public LetsServiceHeroIntegration(Context context, String vinNumber) {
+    public LetsServiceHeroIntegration(Context context, String vinNumber,String googleApi) {
             this.context = context;
             this.vinNumber = vinNumber;
+            this.googleApi = googleApi;
             Intent i = new Intent(context.getApplicationContext(), LetsServiceHeroIntegrationActivity.class);
             i.putExtra("id",vinNumber);
+            i.putExtra("google_api",googleApi);
             context.getApplicationContext().startActivity(i);
     }
 

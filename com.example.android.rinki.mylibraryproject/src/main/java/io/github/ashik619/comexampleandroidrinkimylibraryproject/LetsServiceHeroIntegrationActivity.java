@@ -62,22 +62,22 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
     boolean isFeedbackFilled=false;
     List<QuestionsData> questionsDataList;
     ImageView imageView;
-  Dialog   dialog;
-String headerToken;
+    Dialog   dialog;
+    String headerToken,googleApiKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_rss_test);
-       /* ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();*/
+
         progress=findViewById(R.id.progress);
        Intent intent =getIntent();
       if(intent!=null){
             id=intent.getStringExtra("id");
+            googleApiKey=intent.getStringExtra("google_api");
             getAuthenticateLogin(id);
         }
-
+        String formatted = getString(R.string.api_value, googleApiKey);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         errorTextView = (TextView) findViewById(R.id.error_message);
         imageView = (ImageView) findViewById(R.id.up_icon);
