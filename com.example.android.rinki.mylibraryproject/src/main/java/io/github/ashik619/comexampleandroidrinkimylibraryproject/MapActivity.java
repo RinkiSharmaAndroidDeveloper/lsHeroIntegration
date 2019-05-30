@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -39,11 +40,13 @@ public class MapActivity extends Activity {
     LatLng latLng;
     PickupFragment pickupFragment;
     DropFragment dropFragment;
+    ImageView backIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         progressBar=findViewById(R.id.progress);
+        backIcon=findViewById(R.id.up_icon);
 
         pickupOnlyDataList =new ArrayList<LatLng>();
         dropOnlyDataList =new ArrayList<LatLng>();
@@ -70,9 +73,17 @@ public class MapActivity extends Activity {
         FragmentManager managerBroad1 = getFragmentManager();
         FragmentTransaction transactionBroad1 = managerBroad.beginTransaction();
         transactionBroad.replace(R.id.drop_map, dropFragment, null);
+
        // pickupFragment.newInstance(click);
        // transactionBroad1.addToBackStack(null);
         transactionBroad1.commit();
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
   /*      getSupportFragmentManager().beginTransaction()
                 .add(R.id.pick_up_map, new PickupFragment()).commit();
         getSupportFragmentManager().beginTransaction()

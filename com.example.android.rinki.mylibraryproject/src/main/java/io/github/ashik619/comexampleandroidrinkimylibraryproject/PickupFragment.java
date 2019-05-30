@@ -3,6 +3,7 @@ package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -77,7 +78,7 @@ public class PickupFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         view = inflater.inflate(R.layout.pickup_fragment, container, false);
@@ -86,6 +87,7 @@ public class PickupFragment extends Fragment {
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
         imageView = (ImageView) view.findViewById(R.id.image_view);
+
         mMapView.onCreate(savedInstanceState);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -123,6 +125,7 @@ public class PickupFragment extends Fragment {
                     return;
                 }
                 googleMap.setMyLocationEnabled(true);
+
 
                 // For dropping a marker at a point on the Map
         /*        LatLng sydney = new LatLng(lati, longi);
