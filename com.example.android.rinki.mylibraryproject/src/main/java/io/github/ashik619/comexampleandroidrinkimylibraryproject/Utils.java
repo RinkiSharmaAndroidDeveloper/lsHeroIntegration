@@ -6,7 +6,7 @@ package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
 public class Utils {
     public static final String  MidKey = "LetSer76845485640281";
-    public static final String  Base_url = "http://letsservice.co.in/";
+    public static final String  Base_url = "https://letsservice.co.in/";
    // public static final String  Fetch_List = "heroPd/getHeroAppointmentDetails/";
  public static final String  Fetch_List = "heroPd/getHeroAppointmentDetails/";
  // https://letsservice.co.in/heroPd/getHeroAppointmentDetails/{chassisNo/{id}/{token}

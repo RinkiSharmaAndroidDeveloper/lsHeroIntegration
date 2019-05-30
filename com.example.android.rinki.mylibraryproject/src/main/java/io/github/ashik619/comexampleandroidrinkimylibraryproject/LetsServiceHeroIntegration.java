@@ -1,13 +1,16 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,14 +35,14 @@ public class LetsServiceHeroIntegration {
 
     String vinNumber,bookingSlot,bookingDate,googleApi;
     Context context;
-    ProgressBar progressBar;
-    public LetsServiceHeroIntegration(Context context, String vinNumber,String googleApi) {
+    ProgressDialog progressBar;
+    public LetsServiceHeroIntegration(Context context, String vinNumber) {
             this.context = context;
             this.vinNumber = vinNumber;
             this.googleApi = googleApi;
             Intent i = new Intent(context.getApplicationContext(), LetsServiceHeroIntegrationActivity.class);
             i.putExtra("id",vinNumber);
-            i.putExtra("google_api",googleApi);
+
             context.getApplicationContext().startActivity(i);
     }
 
@@ -52,16 +55,19 @@ public class LetsServiceHeroIntegration {
             this.vinNumber = vinNumber;
             this.bookingDate = bookingDate;
             this.bookingSlot = bookingSlot;
-            progressBar =new ProgressBar(context);
-        submitFeedBackQuestion(vinNumber,bookingDate,bookingSlot);
+            progressBar =new ProgressDialog(context,R.style.AppCompatAlertDialogStyle);
+        createAppintment(vinNumber,bookingDate,bookingSlot);
     }
 
 
-    private void submitFeedBackQuestion(String vinNumber, String bookingDate,String bookingSlot) {
+    private void createAppintment(String vinNumber, String bookingDate,String bookingSlot) {
         RequestQueue queue = null;
 
         queue = Volley.newRequestQueue(context);
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setCancelable(false);
+        progressBar.setMessage("Creating appointment...");
+        progressBar.show();
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("chassisNo",vinNumber);
@@ -73,15 +79,15 @@ public class LetsServiceHeroIntegration {
 
         String token = generateHash("3");
         final String headTokn =generateHeader("3");
-       String URL = Utils.Base_url + Utils.createAppt + "3/" + token;
-        // String URL = "http://stagging.us-west-2.elasticbeanstalk.com/heroPd/create_hero_appointment_from_hero_app/3/"+token;
-
+        String URL = Utils.Base_url + Utils.createAppt + "3/" + token;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONObject>()
+                {
+
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.hide();
                         Log.e("Response", response.toString());
                         String responsemessage = null;
 
@@ -107,7 +113,7 @@ public class LetsServiceHeroIntegration {
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
                         Log.d("ERROR","error => "+error.toString());
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.hide();
                     }
                 }
         ){
@@ -118,7 +124,10 @@ public class LetsServiceHeroIntegration {
                  return params;
              }
          };
-
+        jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsObjRequest);
 
     }

@@ -63,7 +63,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
     List<QuestionsData> questionsDataList;
     ImageView imageView;
     Dialog   dialog;
-    String headerToken,googleApiKey;
+    String headerToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,10 +74,10 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
        Intent intent =getIntent();
       if(intent!=null){
             id=intent.getStringExtra("id");
-            googleApiKey=intent.getStringExtra("google_api");
+
             getAuthenticateLogin(id);
         }
-        String formatted = getString(R.string.api_value, googleApiKey);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         errorTextView = (TextView) findViewById(R.id.error_message);
         imageView = (ImageView) findViewById(R.id.up_icon);
