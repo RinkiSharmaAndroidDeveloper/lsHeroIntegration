@@ -308,7 +308,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                                     String runnerId = String.valueOf(jsonObject.getInt("runnerId"));
                                     String runnerName = jsonObject.getString("runnername");
                                     String runnerPicture = jsonObject.getString("runnerPicture");
-                                    String runnerMobile = String.valueOf(jsonObject.getInt("runnermobile"));
+                                    String runnerMobile =jsonObject.getString("runnermobile");
                                     String bookingNo = jsonObject.getString("bookingNo");
                                     String mobile = jsonObject.getString("user_mobile");
                                     String paymentStatus = jsonObject.getString("paymentStatus");

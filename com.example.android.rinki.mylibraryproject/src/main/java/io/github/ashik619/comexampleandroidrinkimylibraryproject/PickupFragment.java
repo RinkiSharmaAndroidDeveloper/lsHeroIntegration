@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,6 +52,8 @@ public class PickupFragment extends Fragment {
     int REQUEST_LOCATION = 1;
     MapView mMapView;
     ImageView imageView;
+    TextView textView;
+    DataList dataList;
     Double lat=12.9121, lng=77.6446,lati=12.9698,longi=77.7500,lat1;
     private GoogleMap googleMap;
     Polyline polyline23;
@@ -59,18 +62,26 @@ public class PickupFragment extends Fragment {
 
     List<LatLng> dashDataArray;
     Context context;
-    public PickupFragment newInstance(List<LatLng> dashDataArray, Context context) {
+    public PickupFragment newInstance(List<LatLng> dashDataArray, Context context,DataList dataList) {
         PickupFragment fragment = new PickupFragment();
         Bundle args = new Bundle();
         this.dashDataArray=dashDataArray;
         this.context=context;
-        if(dashDataArray!=null&&dashDataArray.size()>0){
+        this.dataList=dataList;
+        if(dashDataArray!=null&&dashDataArray.size()<0&&dataList.getStatus().equals("Runner Assigned")||dataList.getStatus().equals("Appointment Created")){
+            mMapView.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+        }else if(dashDataArray!=null&&dashDataArray.size()>0&&dataList.getStatus().equals("Bike Picked For Service")||dataList.getStatus().equals("Bike Picked For Delivery")||dataList.getStatus().equals("Bike Delivered")||dataList.getStatus().equals("Bike Service In Progress")) {
             mMapView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
             drawLine(dashDataArray);
-        }else{
+        }else if(dashDataArray!=null&&dashDataArray.size()<0&&dataList.getStatus().equals("Bike Picked For Service")||dataList.getStatus().equals("Bike Service In Progress")||dataList.getStatus().equals("Bike Picked For Delivery")||dataList.getStatus().equals("Bike Delivered")) {
             mMapView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+
         }
 
         return fragment;
@@ -87,6 +98,7 @@ public class PickupFragment extends Fragment {
 
         mMapView = (MapView) view.findViewById(R.id.mapView);
         imageView = (ImageView) view.findViewById(R.id.image_view);
+        textView = (TextView) view.findViewById(R.id.default_txt);
 
         mMapView.onCreate(savedInstanceState);
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -311,10 +323,15 @@ public class PickupFragment extends Fragment {
                     Log.e("Draw Line", "got null as parameters");
                     return;
                 }
+                int s =points.size()-1;
                 double latCurrent = points.get(0).latitude;
                 double lngCurrent = points.get(0).longitude;
+
+                double latCurrent1 = points.get(s).latitude;
+                double lngCurrent1 = points.get(s).longitude;
                 LatLng sydney = new LatLng(latCurrent, lngCurrent);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Pickup").snippet("Start Position"));
+                googleMap.addMarker(new MarkerOptions().position(sydney).title("Pickup").snippet("Start Position"));                    LatLng sydney1= new LatLng(latCurrent1, lngCurrent1);
+                googleMap.addMarker(new MarkerOptions().position(sydney1).title("Pickup").snippet("End Position"));
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 Polyline line = googleMap.addPolyline(new PolylineOptions().width(3).color(Color.BLUE));
