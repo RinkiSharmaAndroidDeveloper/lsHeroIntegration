@@ -23,6 +23,7 @@
     <color name="heroTextColor">#5c6273</color>
     <color name="grayColor">#888888</color>
     <color name="grayColor_txt">#9b9b9b</color>
+    <color name="greenColor">#018f35</color>
 
 
 </resources>

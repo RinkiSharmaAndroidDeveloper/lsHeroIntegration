@@ -1,9 +1,11 @@
 package io.github.ashik619.comexampleandroidrinkimylibraryproject;
 
 import android.Manifest;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,6 +46,8 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         LinearLayout spinner, spiiner1;
         LinearLayout linearLayout;
       LinearLayout google_map_image;
+      ImageView Dot1,Dot2,Dot3,Dot4,Dot5,Dot6;
+      View viewDot1,viewDot2,viewDot3,viewDot4;
         public MyViewHolder(View view) {
             super(view);
             Username = (TextView) view.findViewById(R.id.name);
@@ -69,6 +74,17 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             textView4 = (TextView) view.findViewById(R.id.txt4);
             textView5 = (TextView) view.findViewById(R.id.txt5);
             textView6 = (TextView) view.findViewById(R.id.txt6);
+            Dot1 = (ImageView) view.findViewById(R.id.dot1);
+            Dot2 = (ImageView) view.findViewById(R.id.dot2);
+            Dot3 = (ImageView) view.findViewById(R.id.dot3);
+            Dot4 = (ImageView) view.findViewById(R.id.dot4);
+            Dot5 = (ImageView) view.findViewById(R.id.dot5);
+            Dot6 = (ImageView) view.findViewById(R.id.dot6);
+
+            viewDot1 = (View) view.findViewById(R.id.line1);
+            viewDot2 = (View) view.findViewById(R.id.line2);
+            viewDot3 = (View) view.findViewById(R.id.line3);
+            viewDot4 = (View) view.findViewById(R.id.line4);
         }
     }
 
@@ -89,6 +105,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         return new MyViewHolder(itemView);
     }
 
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final DataList movie = moviesList.get(position);
@@ -99,10 +116,10 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         holder.PhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-if(movie.getRunnerMobile().length()<10){
-    Toast.makeText(context, "Invalid Number", Toast.LENGTH_LONG).show();
-    return;
-}
+                if (movie.getRunnerMobile().length() < 10) {
+                    Toast.makeText(context, "Invalid Number", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
@@ -115,88 +132,87 @@ if(movie.getRunnerMobile().length()<10){
                 }
                 Intent intentCall = new Intent(Intent.ACTION_CALL);
 
-                intentCall.setData(Uri.parse("tel:" +movie.getRunnerMobile()));
+                intentCall.setData(Uri.parse("tel:" + movie.getRunnerMobile()));
                 context.startActivity(intentCall);
 
-    }
-});
-holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+            }
+        });
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            viewJobCard.success(moviesList.get(position).getId());
+                viewJobCard.success(moviesList.get(position).getId());
 
 
-    }
-});
-        if(!TextUtils.isEmpty(movie.getBookingNo())){
+            }
+        });
+        if (!TextUtils.isEmpty(movie.getBookingNo())) {
             holder.bookingNumber.setText(movie.getBookingNo());
         }
-        if(movie.getFinal_quotation().equals("0")||movie.getPaymentStatus().equals("paid"))
-        {
+        if (movie.getFinal_quotation().equals("0") || movie.getPaymentStatus().equals("paid")) {
             holder.PaymentButton.setBackgroundResource(R.drawable.disable_btn);
 
         }
 
-  holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-          if(movie.getFinal_quotation().equals("0"))
-          {
-              Toast.makeText(context, "Payment detail is not updated", Toast.LENGTH_LONG).show();
-          }else if(movie.getPaymentStatus().equals("paid")){
-              Toast.makeText(context, "Payment already done", Toast.LENGTH_LONG).show();
-          }else
-              {
-                  asyncResult_clickPayTm.success(moviesList.get(position));
-              }
+        holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (movie.getFinal_quotation().equals("0")) {
+                    Toast.makeText(context, "Payment detail is not updated", Toast.LENGTH_LONG).show();
+                } else if (movie.getPaymentStatus().equals("paid")) {
+                    Toast.makeText(context, "Payment already done", Toast.LENGTH_LONG).show();
+                } else {
+                    asyncResult_clickPayTm.success(moviesList.get(position));
+                }
 
 
-      }
-  });
-holder.google_map_image.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        if(!moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
-        goOnMap.success(moviesList.get(position));}
-        else {
-            Toast.makeText(context,"Appointment Cancelled",Toast.LENGTH_LONG).show();
+            }
+        });
+        holder.google_map_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
+                    goOnMap.success(moviesList.get(position));
+                } else {
+                    Toast.makeText(context, "Appointment Cancelled", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        if (movie.getChassisNo() != null) {
+            holder.vinNumber.setText(movie.getChassisNo());
         }
-    }
-});
-
-if(movie.getChassisNo()!=null){
-    holder.vinNumber.setText(movie.getChassisNo());
-}
-if(movie.getLsAmount()!=null){
-    holder.lsAmount.setText(movie.getLsAmount()+".00");
-}
-
-     if(movie.getFinal_quotation()!=null){
-            holder.currentStatus.setText(movie.getFinal_quotation()+".00");
+        if (movie.getLsAmount() != null) {
+            holder.lsAmount.setText(movie.getLsAmount() + ".00");
         }
-if(movie.getBikeNo()!=null){
-    holder.bikeNumber.setText(movie.getBikeNo());
-}
-if(movie.getDateTime()!=null){
-    holder.date.setText(movie.getDateTime());
-}
-if(movie.getBikeBrandname()!=null){
-    holder.bikeBookedModel.setText(movie.getBikeBrandname()+" "+movie.getBikeModel());
-}
-    if(movie.getRunnerPicture()!=null){
-        Picasso.with(context).load(movie.getRunnerPicture()).into(holder.userImg);
-    }
+
+        if (movie.getFinal_quotation() != null) {
+            holder.currentStatus.setText(movie.getFinal_quotation() + ".00");
+        }
+        if (movie.getBikeNo() != null) {
+            holder.bikeNumber.setText(movie.getBikeNo());
+        }
+        if (movie.getDateTime() != null) {
+            holder.date.setText(movie.getDateTime());
+        }
+        if (movie.getBikeBrandname() != null) {
+            holder.bikeBookedModel.setText(movie.getBikeBrandname() + " " + movie.getBikeModel());
+        }
+        if (movie.getRunnerPicture() != null) {
+            Picasso.with(context).load(movie.getRunnerPicture()).into(holder.userImg);
+        }
 
 
-     holder.userRating.setText(movie.getRating());
+        holder.userRating.setText(movie.getRating());
 
 
-if(moviesList.get(position).getStatus().equals("Appointment Created"))
-{
+        if (moviesList.get(position).getStatus().equals("Appointment Created")) {
             //holder.spinner.setCurrentStep(1);
-          holder.appointCreatated1.setVisibility(View.VISIBLE);
-    holder.appointCreatated1.setText("Appointment Created");
+  /*  ImageView Dot1,Dot2,Dot3,Dot4,Dot5,Dot6;
+    View viewDot1,viewDot2,viewDot3,viewDot4;*/
+
+            holder.appointCreatated1.setVisibility(View.VISIBLE);
+            holder.appointCreatated1.setText("Appointment Created");
             holder.spiiner1.setVisibility(View.GONE);
             holder.runnerAssigned2.setVisibility(View.GONE);
             holder.bikePickupedup3.setVisibility(View.GONE);
@@ -204,11 +220,23 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView5.setVisibility(View.GONE);
             holder.textView6.setVisibility(View.GONE);
 
-}else if(moviesList.get(position).getStatus().equals("Runner Assigned")){
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.red_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+
+
+        } else if (moviesList.get(position).getStatus().equals("Runner Assigned")) {
             holder.spiiner1.setVisibility(View.GONE);
 
-          //  holder.spinner.setCurrentStep(2);
-    holder.appointCreatated1.setText("Appointment Created");
+            //  holder.spinner.setCurrentStep(2);
+            holder.appointCreatated1.setText("Appointment Created");
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
             holder.bikePickupedup3.setVisibility(View.GONE);
@@ -216,25 +244,42 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView5.setVisibility(View.GONE);
             holder.textView6.setVisibility(View.GONE);
 
-        }else
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.red_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
 
-        if(moviesList.get(position).getStatus().equals("Bike Picked For Service")){
+        } else if (moviesList.get(position).getStatus().equals("Bike Picked For Service")) {
 
             holder.spiiner1.setVisibility(View.GONE);
             holder.appointCreatated1.setText("Appointment Created");
-          //  holder.spinner.setCurrentStep(3);
+            //  holder.spinner.setCurrentStep(3);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
             holder.bikePickupedup3.setVisibility(View.VISIBLE);
             holder.textView4.setVisibility(View.GONE);
             holder.textView5.setVisibility(View.GONE);
             holder.textView6.setVisibility(View.GONE);
-        }else
-
-        if(moviesList.get(position).getStatus().equals("Bike Service In Progress")){
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.red_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+        } else if (moviesList.get(position).getStatus().equals("Bike Service In Progress")) {
             holder.spiiner1.setVisibility(View.VISIBLE);
             holder.spinner.setVisibility(View.VISIBLE);
-           // holder.spiiner1.setCurrentStep(1);
+            // holder.spiiner1.setCurrentStep(1);
             //holder.spinner.setCurrentStep(3);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setText("Appointment Created");
@@ -243,10 +288,19 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView4.setVisibility(View.VISIBLE);
             holder.textView5.setVisibility(View.GONE);
             holder.textView6.setVisibility(View.GONE);
-        }else
-        if(moviesList.get(position).getStatus().equals("Bike Picked For Delivery")){
-          //  holder.spinner.setCurrentStep(3);
-           // holder.spiiner1.setCurrentStep(2);
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.red_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.red_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+        } else if (moviesList.get(position).getStatus().equals("Bike Picked For Delivery")) {
+            //  holder.spinner.setCurrentStep(3);
+            // holder.spiiner1.setCurrentStep(2);
             holder.spiiner1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setText("Appointment Created");
@@ -255,9 +309,17 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView4.setVisibility(View.VISIBLE);
             holder.textView5.setVisibility(View.VISIBLE);
             holder.textView6.setVisibility(View.GONE);
-        }else
-
-        if(moviesList.get(position).getStatus().equals("Bike Delivered")){
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.red_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
+        } else if (moviesList.get(position).getStatus().equals("Bike Delivered")) {
         /*    holder.spinner.setCurrentStep(3);
             holder.spiiner1.setCurrentStep(3);*/
             holder.spiiner1.setVisibility(View.VISIBLE);
@@ -268,9 +330,17 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView4.setVisibility(View.VISIBLE);
             holder.textView5.setVisibility(View.VISIBLE);
             holder.textView6.setVisibility(View.VISIBLE);
-        }else
-
-        if(moviesList.get(position).getStatus().equals("Appointment Cancelled")){
+            holder.Dot1.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot2.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot3.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot4.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot5.setBackgroundResource(R.drawable.green_circle);
+            holder.Dot6.setBackgroundResource(R.drawable.green_circle);
+            holder.viewDot1.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+            holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
+        } else if (moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
 
             holder.spinner.setVisibility(View.GONE);
             holder.spiiner1.setVisibility(View.GONE);
@@ -282,9 +352,7 @@ if(moviesList.get(position).getStatus().equals("Appointment Created"))
             holder.textView5.setVisibility(View.GONE);
             holder.textView6.setVisibility(View.GONE);
         }
-
     }
-
 
 
     @Override
