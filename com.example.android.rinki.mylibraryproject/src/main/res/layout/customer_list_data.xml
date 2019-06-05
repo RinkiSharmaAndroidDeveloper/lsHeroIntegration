@@ -436,7 +436,7 @@ Delivery"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:textColor="#9b9b9b"
-            android:text="LsAmount"
+            android:text="Extra Km Charges"
             />
         <TextView
             android:layout_width="wrap_content"
