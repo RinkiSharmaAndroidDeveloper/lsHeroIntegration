@@ -152,22 +152,24 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         if (movie.getFinal_quotation().equals("0") || movie.getPaymentStatus().equals("paid")) {
             holder.PaymentButton.setBackgroundResource(R.drawable.disable_btn);
 
+        }else{
+            holder.PaymentButton.setBackgroundResource(R.drawable.background_btn);
         }
 
         holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (movie.getFinal_quotation().equals("0")) {
+
                     Toast.makeText(context, "Payment detail is not updated", Toast.LENGTH_LONG).show();
                 } else if (movie.getPaymentStatus().equals("paid")) {
                     Toast.makeText(context, "Payment already done", Toast.LENGTH_LONG).show();
                 } else {
                     asyncResult_clickPayTm.success(moviesList.get(position));
                 }
-
-
             }
         });
+
         holder.google_map_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -74,8 +74,8 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
        Intent intent =getIntent();
       if(intent!=null){
             id=intent.getStringExtra("id");
-
-            getAuthenticateLogin(id);
+          //getFeedBackQuestion();
+           getAuthenticateLogin(id);
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -190,7 +190,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         //getting paytm service
         PaytmPGService Service = PaytmPGService.getProductionService();
 
-
+        int sum = Integer.parseInt(dataList.getFinal_quotation())+Integer.parseInt(dataList.getLsAmount());
         String callbackUrl = Utils.CallBack_Url+orderId;
          userId=dataList.getUserId();
          privilegedId=dataList.getPrivilegeId();
@@ -203,7 +203,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         paramMap.put( "MOBILE_NO" , dataList.getMobileNo());
        // paramMap.put( "EMAIL" , dataList.getEmail());
         paramMap.put( "CHANNEL_ID" , "WEB");
-        paramMap.put( "TXN_AMOUNT" , "1");
+        paramMap.put("TXN_AMOUNT", String.valueOf(sum));
         paramMap.put( "WEBSITE" , "LetSerWEB");
 
         // This is the staging value. Production value is available in your dashboard
@@ -380,7 +380,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         queue = Volley.newRequestQueue(this);
         progress.setVisibility(View.VISIBLE);
 
-
+        int sum = Integer.parseInt(dataList.getFinal_quotation())+Integer.parseInt(dataList.getLsAmount());
 
     String token =generateHash(dataList.getUserId());
         String URL = Utils.getCheckSum_Url+dataList.getUserId()+"/"+token;
@@ -391,8 +391,8 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
             jsonObject.put("INDUSTRY_TYPE_ID","Retail109");
             jsonObject.put("CHANNEL_ID","WEB");
             jsonObject.put("WEBSITE","LetSerWEB");
-        //   jsonObject.put("TXN_AMOUNT",dataList.getFinal_quotation()+dataList.getLsAmount());
-            jsonObject.put("TXN_AMOUNT","1");
+         jsonObject.put("TXN_AMOUNT",String.valueOf(sum));
+            //jsonObject.put("TXN_AMOUNT","1");
             jsonObject.put("CALLBACK_URL",callbackUrl);
             jsonObject.put("MID","LetSer76845485640281");
 
@@ -444,6 +444,12 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         return hash+"";
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        getAuthenticateLogin(id);
+
+    }
 
     @Override
     public void onTransactionResponse(Bundle inResponse) {
@@ -490,7 +496,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                 jsonObject.put("TXNAMOUNT",TXNAMOUNT);
                 jsonObject.put("CURRENCY",CURRENCY);
                 jsonObject.put("TXNID",TXNID);
-                //jsonObject.put("TXN_AMOUNT",dataList.getFinal_quotation());
+              //jsonObject.put("TXN_AMOUNT",dataList.getFinal_quotation());
                 jsonObject.put("BANKTXNID",BANKTXNID);
                 jsonObject.put("RESPCODE",RESPCODE);
                 jsonObject.put("RESPMSG",RESPMSG);
@@ -559,7 +565,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         progress.setVisibility(View.VISIBLE);
 
         String token =generateHash("3");
-        final String headTokn =generateHash("3");
+        final String headTokn =generateHeader("3");
         String URL = Utils.Base_url+Utils.getFeedbackQuestions+"3/"+token;
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
@@ -587,7 +593,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
 
                             }
 
-
+//8147868049
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

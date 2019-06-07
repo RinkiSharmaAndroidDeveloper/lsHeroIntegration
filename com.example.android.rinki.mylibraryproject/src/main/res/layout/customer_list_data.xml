@@ -420,7 +420,7 @@ Delivery"
             android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:textColor="#9b9b9b"
-            android:text="Amount"
+            android:text="Service Charges"
             />
         <TextView
             android:layout_width="wrap_content"
