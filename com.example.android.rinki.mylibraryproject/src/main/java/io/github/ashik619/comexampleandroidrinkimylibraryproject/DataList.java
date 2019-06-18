@@ -12,9 +12,9 @@ import java.io.Serializable;
 public class DataList implements Parcelable{
 
 
-    String customerName1, email, user_picture, bikeBrandname, id, userId, createdBy_Id, organicId, pcId, bikeBrand, bikeModel, bikeNo, pickAddress, dropAddress, locality, dateTime, serviceTypeId, assistanceTypeId, assistanceType, serviceCenter, typeOfService, customerType, status, ACRId, cancelRemarks, lsRemarks, scStatus, final_quotation, discounted_amount, assistanceAmount, lsAmount, chassisNo, engineNO, SPONO, dealerCode, availHMSICredit, typeOfPD, amcUser, privilegeId, cityId, couponId, teleCallerTCID, CREID, activeStatus, rating, runnerId, runnerName, runnerPicture, runnerMobile, bookingNo, mobileNo, paymentStatus;
+    String customerName1, email, user_picture, bikeBrandname, id, userId, createdBy_Id, organicId, pcId, bikeBrand, bikeModel, bikeNo, pickAddress, dropAddress, locality, dateTime, serviceTypeId, assistanceTypeId, assistanceType, serviceCenter, typeOfService, customerType, status, ACRId, cancelRemarks, lsRemarks, scStatus, final_quotation, discounted_amount, assistanceAmount, lsAmount, chassisNo, engineNO, SPONO, dealerCode, availHMSICredit, typeOfPD, amcUser, privilegeId, cityId, couponId, teleCallerTCID, CREID, activeStatus, rating, runnerId, runnerName, runnerPicture, runnerMobile, bookingNo, mobileNo, paymentStatus,feedbackStatus;
 
-    public DataList(String customerName1, String email, String user_picture, String bikeBrandname, String id, String userId, String createdBy_Id, String organicId, String pcId, String bikeBrand, String bikeModel, String bikeNo, String pickAddress, String dropAddress, String locality, String dateTime, String serviceTypeId, String assistanceTypeId, String assistanceType, String serviceCenter, String typeOfService, String customerType, String status, String ACRId, String cancelRemarks, String lsRemarks, String scStatus, String final_quotation, String discounted_amount, String assistanceAmount, String lsAmount, String chassisNo, String engineNO, String SPONO, String dealerCode, String availHMSICredit, String typeOfPD, String amcUser, String privilegeId, String cityId, String couponId, String teleCallerTCID, String CREID, String activeStatus, String rating, String runnerId, String runnerName, String runnerPicture, String runnerMobile, String bookingNo, String mobileNo, String paymentStatus) {
+    public DataList(String customerName1, String email, String user_picture, String bikeBrandname, String id, String userId, String createdBy_Id, String organicId, String pcId, String bikeBrand, String bikeModel, String bikeNo, String pickAddress, String dropAddress, String locality, String dateTime, String serviceTypeId, String assistanceTypeId, String assistanceType, String serviceCenter, String typeOfService, String customerType, String status, String ACRId, String cancelRemarks, String lsRemarks, String scStatus, String final_quotation, String discounted_amount, String assistanceAmount, String lsAmount, String chassisNo, String engineNO, String SPONO, String dealerCode, String availHMSICredit, String typeOfPD, String amcUser, String privilegeId, String cityId, String couponId, String teleCallerTCID, String CREID, String activeStatus, String rating, String runnerId, String runnerName, String runnerPicture, String runnerMobile, String bookingNo, String mobileNo, String paymentStatus, String feedbackStatus) {
         this.customerName1 = customerName1;
         this.email = email;
         this.user_picture = user_picture;
@@ -67,6 +67,7 @@ public class DataList implements Parcelable{
         this.bookingNo = bookingNo;
         this.mobileNo = mobileNo;
         this.paymentStatus = paymentStatus;
+        this.feedbackStatus = feedbackStatus;
     }
 
     protected DataList(Parcel in) {
@@ -122,6 +123,7 @@ public class DataList implements Parcelable{
         bookingNo = in.readString();
         mobileNo = in.readString();
         paymentStatus = in.readString();
+        feedbackStatus = in.readString();
     }
 
     public static final Creator<DataList> CREATOR = new Creator<DataList>() {
@@ -552,6 +554,14 @@ public class DataList implements Parcelable{
         this.paymentStatus = paymentStatus;
     }
 
+    public String getFeedbackStatus() {
+        return feedbackStatus;
+    }
+
+    public void setFeedbackStatus(String feedbackStatus) {
+        this.feedbackStatus = feedbackStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -611,5 +621,6 @@ public class DataList implements Parcelable{
         dest.writeString(bookingNo);
         dest.writeString(mobileNo);
         dest.writeString(paymentStatus);
+        dest.writeString(feedbackStatus);
     }
 }

@@ -36,12 +36,13 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
     private List<DataList> moviesList;
     Context context;
     AsyncResult<DataList> asyncResult_clickPayTm;
+    AsyncResult<DataList> feedBackAsyncTask;
     AsyncResult<String> viewJobCard;
     int steps = 3;
     AsyncResult<DataList> goOnMap;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView Username, userRating, bookingNumber, vinNumber, currentStatus, bikeBookedModel, bikeNumber, appointCreatated1, runnerAssigned2, bikePickupedup3, textView4, textView5, textView6, date, lsAmount;
-        Button otpBtn, PaymentButton;
+        Button otpBtn, PaymentButton,feedback;
         CircleImageView userImg, PhoneBtn;
         LinearLayout spinner, spiiner1;
         LinearLayout linearLayout;
@@ -59,6 +60,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             otpBtn = (Button) view.findViewById(R.id.otp_txt);
             google_map_image = (LinearLayout) view.findViewById(R.id.google_map);
             PaymentButton = (Button) view.findViewById(R.id.payment_btn);
+            feedback = (Button) view.findViewById(R.id.feedBackbutton);
             userImg = (CircleImageView) view.findViewById(R.id.profile_image);
             PhoneBtn = (CircleImageView) view.findViewById(R.id.bs_call_customer);
             spinner = (LinearLayout) view.findViewById(R.id.breadcrumbs);
@@ -89,12 +91,13 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
     }
 
 
-    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm, AsyncResult<String> viewJobCard,AsyncResult<DataList> goOnMap ) {
+    public DataListAdapter(List<DataList> moviesList, Context context, AsyncResult<DataList> asyncResult_clickPayTm, AsyncResult<String> viewJobCard,AsyncResult<DataList> goOnMap,AsyncResult<DataList> feedBackAsyncTask ) {
         this.moviesList = moviesList;
         this.context = context;
         this.asyncResult_clickPayTm = asyncResult_clickPayTm;
         this.viewJobCard = viewJobCard;
         this.goOnMap=goOnMap;
+        this.feedBackAsyncTask=feedBackAsyncTask;
     }
 
     @Override
@@ -113,6 +116,19 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         if (movie.getRunnerName() != null) {
             holder.Username.setText(movie.getRunnerName());
         }
+        holder.feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
+
+                    Toast.makeText(context, "Feedback already exist", Toast.LENGTH_LONG).show();
+                }else{
+                    feedBackAsyncTask.success(moviesList.get(position));
+
+                }
+
+            }
+        });
         holder.PhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +170,13 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
 
         }else{
             holder.PaymentButton.setBackgroundResource(R.drawable.background_btn);
+        }
+
+        if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
+            holder.feedback.setBackgroundResource(R.drawable.disable_btn);
+
+        }else{
+            holder.feedback.setBackgroundResource(R.drawable.background_btn);
         }
 
         holder.PaymentButton.setOnClickListener(new View.OnClickListener() {

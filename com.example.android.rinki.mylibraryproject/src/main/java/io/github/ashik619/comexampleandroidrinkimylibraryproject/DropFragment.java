@@ -4,7 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -47,7 +51,11 @@ import java.util.List;
  */
 
 public class DropFragment extends Fragment {
-
+    Location mCurrentLocation;
+    String mLastUpdateTime;
+    private LocationManager locationManager;
+    private String provider;
+LocationListener locationListener;
     View view;
     private GoogleMap mMap;
     DataList dataList;
@@ -98,15 +106,18 @@ ImageView imageView;
 
         double latCurrent1 = points.get(s).latitude;
         double lngCurrent1 = points.get(s).longitude;
-        LatLng sydney = new LatLng(latCurrent, lngCurrent);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Dropped").snippet("Start Position"));                    LatLng sydney1= new LatLng(latCurrent1, lngCurrent1);
-        googleMap.addMarker(new MarkerOptions().position(sydney1).title("Dropped").snippet("End Position"));
+        LatLng sydney = new LatLng(latCurrent1, lngCurrent1);
+       // googleMap.addMarker(new MarkerOptions().position(sydney).title("Dropped").snippet("Start Position"));                    LatLng sydney1= new LatLng(latCurrent1, lngCurrent1);
+        googleMap.addMarker(new MarkerOptions().position(sydney).title("Customer Position").snippet("End Position"));
 
-
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latCurrent1, lngCurrent1))
+                .title("Customer Location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.home_icon_map)));
+     /*   CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         Polyline line = googleMap.addPolyline(new PolylineOptions().width(3).color(Color.BLUE));
-        line.setPoints(points);
+        line.setPoints(points);*/
 
     }
     @Override
@@ -152,8 +163,96 @@ ImageView imageView;
                     // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
-                googleMap.setMyLocationEnabled(true);
+                googleMap.setMyLocationEnabled(false);
 
+
+                LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                boolean enabledGPS = service
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean enabledWiFi = service
+                        .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+
+                locationManager = (LocationManager) (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+                Criteria criteria = new Criteria();
+                provider = locationManager.getBestProvider(criteria, false);
+                Location location = locationManager.getLastKnownLocation(provider);
+
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+
+                LatLng latLng1 = new LatLng(latitude, longitude);
+
+       /*         LatLng latLng1 = new LatLng(latitude, longitude);
+                googleMap.addMarker(new MarkerOptions().position(latLng1).title("Runner1").snippet("Location"));*/
+                if(googleMap!=null){
+                    googleMap.clear();
+
+                    googleMap.setMyLocationEnabled(false);
+                    googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+                }
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latitude, longitude))
+                        .title("Runner Position")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_google_map_cion)));
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng1).zoom(35).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+/*
+
+                double latCurrent = dashDataArray.get(0).latitude;
+                double lngCurrent = dashDataArray.get(0).longitude;
+
+                sydney = new LatLng(latCurrent, lngCurrent);
+                googleMap.addMarker(new MarkerOptions().position(sydney).title("Customer").snippet("Location"));*/
+                // Define the criteria how to select the locatioin provider -> use
+                // default
+                locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        mCurrentLocation = location;
+                        Double lat = mCurrentLocation.getLatitude();
+                        Double lng = mCurrentLocation.getLongitude();
+                        // LatLng latLng = new LatLng(lat, lng); //you already have this
+                        //  drawLine(dashDataArray,userLatLng);
+                        //  dashDataArray.add(latLng); //added
+
+                        LatLng latLng1 = new LatLng(lat, lng);
+               /*         googleMap.addMarker(new MarkerOptions().position(latLng1).title("Runner").snippet("Location"));*/
+                        if(googleMap!=null){
+                            googleMap.clear();
+
+                        }
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(lat, lng))
+                                .title("Runner Position")
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_google_map_cion)));
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng1).zoom(35).build();
+                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        // redrawLine(lat, lng);
+   /*  String latitude = String.valueOf(lat);
+       String lngitude = String.valueOf(lng);*/
+                        // Toast.makeText(context,latitude+","+lngitude,Toast.LENGTH_LONG).show();
+
+                        // getPolyline(sydney,latitude,lngitude);
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+
+                    }
+                };
 
 
             }
@@ -177,16 +276,93 @@ ImageView imageView;
         }
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.onResume();
+    public void onStart() {
+        if(googleMap!=null){
+            googleMap.clear();
+        }
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
+        } else {
+
+        }
+        if(locationListener!=null) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }
+
+        super.onStart();
+
     }
+
+
+
+
+
 
     @Override
     public void onPause() {
         super.onPause();
+
         mMapView.onPause();
+        if(googleMap!=null){
+            googleMap.clear();
+        }
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
+        } else {
+
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+    }
+
+
+
+    @Override
+    public void onResume() {
+
+        mMapView.onResume();
+        if(googleMap!=null){
+            googleMap.clear();
+        }
+
+        //isLocationEnabled();
+ /*    *//*   if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }*/
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
+        } else {
+
+        }
+        if(locationListener!=null){
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+        }
+
+        super.onResume();
     }
 
     @Override

@@ -86,7 +86,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         answersDataList = new ArrayList<>();
        // dialog = new Dialog(this);
         dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard,goOnMap );
+        mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard,goOnMap,feedBackAsyncTask );
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
@@ -109,6 +109,20 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         public void success(DataList dataList) {
 
             getCheckSumKey(dataList);
+        }
+        @Override
+        public void error(String error) {
+
+        }
+    };
+
+    AsyncResult<DataList> feedBackAsyncTask = new AsyncResult<DataList>()  {
+        @Override
+        public void success(DataList dataList) {
+            userId=dataList.getUserId();
+            privilegedId=dataList.getPrivilegeId();
+            aaptId=dataList.getId();
+            getFeedBackQuestion();
         }
         @Override
         public void error(String error) {
@@ -312,8 +326,9 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                                     String bookingNo = jsonObject.getString("bookingNo");
                                     String mobile = jsonObject.getString("user_mobile");
                                     String paymentStatus = jsonObject.getString("paymentStatus");
+                                    String feedbackStatus = jsonObject.getString("feedbackStatus");
 
-                                    DataList dataList =new  DataList(customerName1,email,user_picture,bikeBrandname, id, userId, createdBy_Id,  organicId,  pcId,  bikeBrand,  bikeModel,  bikeNo,  pickAddress,  dropAddress,  locality,  dateTime,  serviceTypeId,  assistanceTypeId,assistanceType, serviceCenter, typeOfService,  customerType,  status,  ACRId,  cancelRemarks,  lsRemarks,  scStatus,  final_quotation,  discounted_amount,  assistanceAmount,  lsAmount,  chassisNo,  engineNO,  SPONO,  dealerCode,  availHMSICredit,  typeOfPD,  amcUser, privilegeId, cityId,  couponId,  teleCallerTCID,  CREID,  activeStatus,rating,runnerId,  runnerName,runnerPicture,runnerMobile,bookingNo,mobile,paymentStatus);
+                                    DataList dataList =new  DataList(customerName1,email,user_picture,bikeBrandname, id, userId, createdBy_Id,  organicId,  pcId,  bikeBrand,  bikeModel,  bikeNo,  pickAddress,  dropAddress,  locality,  dateTime,  serviceTypeId,  assistanceTypeId,assistanceType, serviceCenter, typeOfService,  customerType,  status,  ACRId,  cancelRemarks,  lsRemarks,  scStatus,  final_quotation,  discounted_amount,  assistanceAmount,  lsAmount,  chassisNo,  engineNO,  SPONO,  dealerCode,  availHMSICredit,  typeOfPD,  amcUser, privilegeId, cityId,  couponId,  teleCallerTCID,  CREID,  activeStatus,rating,runnerId,  runnerName,runnerPicture,runnerMobile,bookingNo,mobile,paymentStatus,feedbackStatus);
                                     listData.add(dataList);
 
                                 }
@@ -338,6 +353,8 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
                         Log.d("ERROR","error => "+error.toString());
+                        showErrorText(listData);
+                        Toast.makeText(getApplicationContext(), "Details not found", Toast.LENGTH_LONG).show();
                         progress.setVisibility(View.GONE);
                     }
                 }
@@ -824,10 +841,18 @@ FeedbackAdapter feedbackAdapter;
     @Override
     public void onBackPressedCancelTransaction() {
 
+
+
     }
 
     @Override
     public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
         Toast.makeText(this, inErrorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

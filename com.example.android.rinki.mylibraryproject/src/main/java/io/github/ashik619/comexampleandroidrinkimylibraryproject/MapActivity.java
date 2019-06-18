@@ -183,7 +183,7 @@ public class MapActivity extends Activity {
                     public void onResponse(JSONArray response) {
                         System.out.println(response);
                         String responsemessage = null;
-
+                        progressBar.setVisibility(View.GONE);
 
                         String typeOfServ = null;
                  try {
