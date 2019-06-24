@@ -76,7 +76,7 @@ String id;
         progressBar.setVisibility(View.VISIBLE);
      String token= generateHash(id);
         //String URL = Utils.Base_url+mobile;getAssigedAppointmentDetail/:aaptId/:token
-        String URL ="http://letsservicetech.in/getAssigedAppointmentDetail/"+id+"/"+token;
+        String URL ="https://letsservicetech.in/getAssigedAppointmentDetail/"+id+"/"+token;
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {

@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -23,13 +24,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
@@ -51,11 +55,14 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -65,71 +72,131 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class PickupFragment extends Fragment {
 
-    private static final String TAG = "LocationActivity";
-    private static final long INTERVAL = 1000 * 10;
-    private static final long FASTEST_INTERVAL = 1000 * 5;
+    private final int FIVE_SECONDS = 5000;
 
 
-    GoogleApiClient mGoogleApiClient;
-    Location mCurrentLocation;
-    String mLastUpdateTime;
-    private LocationManager locationManager;
-    private String provider;
+    List<LatLng> pickupOnlyDataList;
+
     View view;
-    private GoogleMap mMap;
     int REQUEST_LOCATION = 1;
     MapView mMapView;
     ImageView imageView;
     TextView textView;
     DataList dataList;
-    Double lat = 12.9121, lng = 77.6446, lati = 12.9698, longi = 77.7500, lat1;
+
     private GoogleMap googleMap;
-    Polyline polyline23;
+
     Polyline line;
     LatLng sydney;
     Polyline myPolyline;
+    Handler handler;
     List<LatLng> pointsdecode = new ArrayList<LatLng>();
-    int p = 0;
-    LocationListener locationListener;
+
 
     List<LatLng> dashDataArray;
     LatLng userLatLng;
     Context context;
+ProgressBar progressBar;
+    String runnerLatitude=null;
+    String runnerLongitude=null;
+    boolean isRunnerRuning =false;
 
-    protected void createLocationRequest() {
-        /*mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);*/
-    }
-
-    public PickupFragment newInstance(List<LatLng> dashDataArray, Context context, DataList dataList) {
+ /*   public PickupFragment newInstance(Context context, final DataList dataList) {
         PickupFragment fragment = new PickupFragment();
         Bundle args = new Bundle();
-        this.dashDataArray = dashDataArray;
         this.context = context;
         this.dataList = dataList;
-        if (dashDataArray != null && dashDataArray.size() < 0 && dataList.getStatus().equals("Runner Assigned") || dataList.getStatus().equals("Appointment Created")) {
+        if (dataList.getStatus().equals("Appointment Created")) {
             mMapView.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
-        } else if (dashDataArray != null && dashDataArray.size() > 0 && dataList.getStatus().equals("Bike Picked For Service") || dataList.getStatus().equals("Bike Picked For Delivery") || dataList.getStatus().equals("Bike Delivered") || dataList.getStatus().equals("Bike Service In Progress")) {
+        }if (dataList.getStatus().equals("Runner Assigned")) {
             mMapView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);
-            userLatLng = getLocationFromAddress(context, dataList.getLocality());
+            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
 
+            if(userLatLng!=null)
+            {
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        getRunnerLocation(dataList,userLatLng,"1");
+                        // this method will contain your almost-finished HTTP calls
+                        handler.postDelayed(this, FIVE_SECONDS);
+                    }
+                }, FIVE_SECONDS);
 
-          drawLine(dashDataArray, userLatLng);
-        } else if (dashDataArray != null && dashDataArray.size() < 0 && dataList.getStatus().equals("Bike Picked For Service") || dataList.getStatus().equals("Bike Service In Progress") || dataList.getStatus().equals("Bike Picked For Delivery") || dataList.getStatus().equals("Bike Delivered")) {
-            mMapView.setVisibility(View.GONE);
-            imageView.setVisibility(View.VISIBLE);
+            }
+
+        } else if (dataList.getStatus().equals("Bike Picked For Service")) {
+            mMapView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);
+            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
+
+        if(userLatLng!=null){
+            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
+            getRunnerLocation(dataList,userLatLng,"2");
+        }
+        } else if (dataList.getStatus().equals("Bike Picked For Delivery") || dataList.getStatus().equals("Bike Delivered") || dataList.getStatus().equals("Bike Service In Progress")) {
+            mMapView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
+            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
+
+        if(userLatLng!=null){
+            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
+        }
+        }
+        return fragment;
+    }*/
+
+
+public void setFragmentValues(Context context, final DataList dataList){
+
+    if (dataList.getStatus().equals("Appointment Created")) {
+        mMapView.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
+    }if (dataList.getStatus().equals("Runner Assigned")) {
+        mMapView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
+        userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
+        isRunnerRuning =true;
+        if(userLatLng!=null)
+        {
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    getRunnerLocation(dataList,userLatLng,"1");
+                    // this method will contain your almost-finished HTTP calls
+                    handler.postDelayed(this, FIVE_SECONDS);
+                }
+            }, FIVE_SECONDS);
 
         }
 
-        return fragment;
+    } else if (dataList.getStatus().equals("Bike Picked For Service")) {
+        mMapView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
+        userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
+
+        if(userLatLng!=null){
+            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
+            getRunnerLocation(dataList,userLatLng,"2");
+        }
+    } else if (dataList.getStatus().equals("Bike Picked For Delivery") || dataList.getStatus().equals("Bike Delivered") || dataList.getStatus().equals("Bike Service In Progress")) {
+        mMapView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
+        userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
+
+        if(userLatLng!=null){
+            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
+        }
     }
+}
 
 
     @Override
@@ -139,12 +206,15 @@ public class PickupFragment extends Fragment {
         view = inflater.inflate(R.layout.pickup_fragment, container, false);
        /* SupportMapFragment mapFragment = (SupportMapFragment) view.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
-
         mMapView = (MapView) view.findViewById(R.id.mapView);
         imageView = (ImageView) view.findViewById(R.id.image_view);
         textView = (TextView) view.findViewById(R.id.default_txt);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress);
 
         mMapView.onCreate(savedInstanceState);
+        dataList = getArguments().getParcelable("dataList");
+        handler=new Handler();
+        pickupOnlyDataList = new ArrayList<LatLng>();
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Check Permissions Now
@@ -181,7 +251,8 @@ public class PickupFragment extends Fragment {
                     return;
                 }
                 googleMap.setMyLocationEnabled(false);
-                LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                setFragmentValues(getActivity(),dataList);
+              /*  LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
                 boolean enabledGPS = service
                         .isProviderEnabled(LocationManager.GPS_PROVIDER);
                 boolean enabledWiFi = service
@@ -189,19 +260,19 @@ public class PickupFragment extends Fragment {
 
 
                 locationManager = (LocationManager) (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-                Criteria criteria = new Criteria();
+*/
+              /*  Criteria criteria = new Criteria();
                 provider = locationManager.getBestProvider(criteria, false);
                 Location location = locationManager.getLastKnownLocation(provider);
 
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
 
-                LatLng latLng1 = new LatLng(latitude, longitude);
+                LatLng latLng1 = new LatLng(latitude, longitude);*/
 
        /*         LatLng latLng1 = new LatLng(latitude, longitude);
                 googleMap.addMarker(new MarkerOptions().position(latLng1).title("Runner1").snippet("Location"));*/
-                if(googleMap!=null){
+               /* if(googleMap!=null){
                     googleMap.clear();
 
                     googleMap.setMyLocationEnabled(false);
@@ -213,7 +284,7 @@ public class PickupFragment extends Fragment {
                         .title("Runner Position")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_google_map_cion)));
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng1).zoom(35).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
 /*
 
                 double latCurrent = dashDataArray.get(0).latitude;
@@ -223,7 +294,7 @@ public class PickupFragment extends Fragment {
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Customer").snippet("Location"));*/
                 // Define the criteria how to select the locatioin provider -> use
                 // default
-                locationListener = new LocationListener() {
+            /*    locationListener = new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
                         mCurrentLocation = location;
@@ -234,7 +305,7 @@ public class PickupFragment extends Fragment {
                         //  dashDataArray.add(latLng); //added
 
                         LatLng latLng1 = new LatLng(lat, lng);
-               /*         googleMap.addMarker(new MarkerOptions().position(latLng1).title("Runner").snippet("Location"));*/
+               *//*         googleMap.addMarker(new MarkerOptions().position(latLng1).title("Runner").snippet("Location"));*//*
 if(googleMap!=null){
     googleMap.clear();
 
@@ -246,8 +317,8 @@ if(googleMap!=null){
                         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng1).zoom(35).build();
                         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                        // redrawLine(lat, lng);
-   /*  String latitude = String.valueOf(lat);
-       String lngitude = String.valueOf(lng);*/
+   *//*  String latitude = String.valueOf(lat);
+       String lngitude = String.valueOf(lng);*//*
                         // Toast.makeText(context,latitude+","+lngitude,Toast.LENGTH_LONG).show();
 
                         // getPolyline(sydney,latitude,lngitude);
@@ -275,7 +346,7 @@ if(googleMap!=null){
                 } else {
 
                     //do something
-                }
+                }*/
                 // For dropping a marker at a point on the Map
         /*        LatLng sydney = new LatLng(lati, longi);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Start Pickup").snippet("Whitefield"));
@@ -438,6 +509,7 @@ if(googleMap!=null){
         if(googleMap!=null){
             googleMap.clear();
         }
+/*
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -451,6 +523,7 @@ if(googleMap!=null){
        if(locationListener!=null) {
            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
        }
+*/
 
         super.onStart();
     /*    if (mGoogleApiClient.isConnected()) {
@@ -484,6 +557,10 @@ if(googleMap!=null){
         if(googleMap!=null){
             googleMap.clear();
         }
+        setFragmentValues(getActivity(),dataList);
+     /*   if(googleMap!=null){
+            googleMap.clear();
+        }
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -494,7 +571,7 @@ if(googleMap!=null){
         } else {
 
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);*/
 
     }
 
@@ -508,6 +585,7 @@ if(googleMap!=null){
             googleMap.clear();
         }
 
+        setFragmentValues(getActivity(),dataList);
         //isLocationEnabled();
  /*    *//*   if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -519,7 +597,7 @@ if(googleMap!=null){
             // for ActivityCompat#requestPermissions for more details.
             return;
         }*/
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+    /*    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Check Permissions Now
             ActivityCompat.requestPermissions(getActivity(),
@@ -532,24 +610,198 @@ if(googleMap!=null){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
       }
-
+*/
         super.onResume();
     }
 
+    public String generateHash(String id){
+        String str = id+"LetsServiceAPIs";
+        long hash = 0;
+        for (int i = 0; i < str.length(); i++){
+            char character = str.charAt(i);
+            int ascii = (int) character;
+            hash = ((hash * 8)-hash)+ascii;
+        }
+        return hash+"";
+    }
 
 
-    public void getPolyline(LatLng latLng,String latit1,String  longit1) {
+    private void getRunnerLocation(DataList dataList, final LatLng latLng, final String isRunnerAvil){
+        RequestQueue queue = null;
+
+        queue = Volley.newRequestQueue(getActivity());
+        progressBar.setVisibility(View.VISIBLE);
+
+        String token =generateHash("3");
+        final String headTokn =generateHeader("3");
+
+       // String URL = "https://letsservice.co.in/heroPd/getRunnerCurrentLocation/"+dataList.getId()+"/3/"+token;
+        String URL = "https://letsservice.co.in/heroPd/getRunnerCurrentLocation/"+dataList.getRunnerId()+"/3/"+token;
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response);
+                       progressBar.setVisibility(View.GONE);
+                        Log.e("Response", response.toString());
+                        String responsemessage = null;
+
+                        try {
+                            String success = response.getString("success");
+                             JSONObject jsonObject=response.getJSONObject("details");
+                            if(success.equals("true")) {
+
+
+                                  runnerLatitude =jsonObject.getString("runnerLatitude");
+                                   runnerLongitude =jsonObject.getString("runnerLongitude");
+                                 double lat = Double.parseDouble(runnerLatitude);
+                                 double lng = Double.parseDouble(runnerLongitude);
+                                if(isRunnerAvil.equals("2"))
+                                {
+                                    googleMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(lat, lng))
+                                            .title("Runner Current Position")
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_google_map_cion)));
+                                }else {
+                                    getPolyline(runnerLatitude,runnerLongitude,latLng,"1");
+                                }
+
+
+                            }
+
+
+//8147868049
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error.toString());
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Header-Token", headTokn);
+                return params;
+            }
+        };
+
+        queue.add(jsObjRequest);
+    }
+
+
+    public String generateHeader(String id){
+        String str = id+"LsSalesHeader";
+        long hash = 0;
+        for (int i = 0; i < str.length(); i++){
+            char character = str.charAt(i);
+            int ascii = (int) character;
+            hash = ((hash * 8)-hash)+ascii;
+        }
+        return hash+"";
+    }
+    public void getPickupdata()
+    {
+        if(pickupOnlyDataList.size()>0){
+             pickupOnlyDataList.clear();
+            }
+
+        RequestQueue queue = null;
+
+        queue = Volley.newRequestQueue(context);
+     //   progressBar.setVisibility(View.VISIBLE);
+        String URL=null;
+
+        String token =generateHash(dataList.getId());
+        URL ="https://letsservicetech.in/appointmentWiseRunnerTrack/"+dataList.getId()+"/start/startPick/endPick/"+token;
+
+
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response);
+                        //   progressBar.setVisibility(View.GONE);
+                        //    Log.e("Response", response.toString());
+                        String responsemessage = null;
+
+
+                        String typeOfServ = null;
+                        try {
+                            //  JSONArray json =response.getJSONArray("");
+
+                            for(int i=0;i<response.length();i++){
+
+                                {
+                                    JSONObject jsonObject = response.getJSONObject(i);
+
+
+                                    String  startPickupLat = jsonObject.getString("lat");
+                                    String  StartPickupLng = jsonObject.getString("lng");
+
+                                    // String  startPickupLat1,StartPickupLng1,dropPickupLat1,dropPickupLng1;
+                                  LatLng  latLng = new LatLng(Double.parseDouble(startPickupLat.trim()),Double.parseDouble(StartPickupLng.trim()));
+                                    if (!pickupOnlyDataList.contains(latLng)){
+                                        pickupOnlyDataList.add(latLng);
+                                    }
+                                }
+
+                            }
+                            if(pickupOnlyDataList.size()>0) {
+                             //   drawLine(pickupOnlyDataList,"1");
+                              //  progressBar.setVisibility(View.GONE);
+                              //  pickupFragment.newInstance(pickupOnlyDataList, getApplicationContext(), dataList);
+
+                            }
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+
+                },
+
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                     //   progressBar.setVisibility(View.GONE);
+                       // pickupFragment.newInstance(pickupOnlyDataList,getApplicationContext(), dataList);
+                    }
+                });
+
+        queue.add(jsObjRequest);
+
+
+    }
+
+
+    public void getPolyline(String latit1, String  longit1, LatLng latLng, final String isServiceCenter) {
      //   getAddressLatLng(latLng);
         String link6 = "https://maps.googleapis.com/maps/api/directions/json?origin=" +latit1+ "," +longit1+ "&destination=" + latLng.latitude + "," + latLng.longitude + "&mode=car&key=AIzaSyAyjEwKCLpCMA2CFFy0JDn2D9YP6d6kK64";
         Log.e("Link 67", link6);
 
-
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+progressBar.setVisibility(View.VISIBLE);
+        final RequestQueue queue = Volley.newRequestQueue(getActivity());
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, link6, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 Log.e("Json Object", "response:=" + response);
                 try {
+                    progressBar.setVisibility(View.GONE);
                     String routes = response.getString("routes");
 
                     JSONArray jsonArray = new JSONArray(routes);
@@ -563,11 +815,11 @@ if(googleMap!=null){
                             JSONObject legsobj = legsArr.getJSONObject(j);
                             String distanceObj = legsobj.getString("distance");
                             JSONObject jstextDistance = new JSONObject(distanceObj);
-                           String distancefinal= jstextDistance.getString("text");
+                            String distancefinal = jstextDistance.getString("text");
                             Log.e("Distance Meter", distancefinal);
                             //  textDistance.setText(distancefinal);
                         }
-                    //    nametext.setText("Distance: "+distancefinal);
+                        //    nametext.setText("Distance: "+distancefinal);
 
                         String overviewpoints = jsonObject.getString("overview_polyline");
                         Log.e("Overviewpoints", overviewpoints);
@@ -575,53 +827,10 @@ if(googleMap!=null){
                         String points = jsonObjectpoints.getString("points");
                         Log.e("points", points);
                         pointsdecode = decodePolyLine(points);
-                        pointsdecode = decodePolyLine(points);
-
-
-                        JSONObject jsonObject1 = new JSONObject(bounds);
-                        String northeast = jsonObject1.getString("northeast");
-                        JSONObject jsonObject2 = new JSONObject(northeast);
-                        lat1 = jsonObject2.getDouble("lat");
-                        double long1 = jsonObject2.getDouble("lng");
-                        LatLng sydney2 = new LatLng(lat1, long1);
-
-
-                        String southwest = jsonObject1.getString("southwest");
-                        JSONObject jsonObject3 = new JSONObject(southwest);
-
+                        drawLine(pointsdecode, isServiceCenter);
                     }
-
-
-                    Log.e("Pointdecode", pointsdecode.toString() + pointsdecode.size());
-                    PolylineOptions polylineOptions = new PolylineOptions().
-                            geodesic(true).
-                            color(Color.BLUE).
-                            width(10);
-                    for (int j = 0; j < pointsdecode.size(); j++) {
-//
-////                        mMap.addMarker(new MarkerOptions().position(pointsdecode.get(j)).title("Place B"));
-//
-//
-                        PolylineOptions polylineOptions2 = polylineOptions.add(pointsdecode.get(j));
-                        polyline23 = googleMap.addPolyline(polylineOptions);
-//
-                    }
-//
-//                    polylineOptions.visible(false);
-//                    Polyline line = mMap.addPolyline(new PolylineOptions()
-//                            .add(new LatLng(location.getLatitude(), location.getLongitude()),
-//                                    new LatLng(this.destinationLatitude, this.destinationLongitude))
-//                            .width(1)
-//                            .color(Color.DKGRAY)
-                    polyline23.remove();
-
-                    Log.e("Pointdecode Clear", pointsdecode.toString() + pointsdecode.size());
-
-
-                    googleMap.addPolyline(polylineOptions);
-
-                    Log.e("routes", routes);
                 } catch (Exception e) {
+                    progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
 
@@ -632,6 +841,7 @@ if(googleMap!=null){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.GONE);
 // TODO Auto-generated method stub
             }
         });
@@ -689,10 +899,13 @@ if(googleMap!=null){
         }
     }
 
-            public void drawLine(List<LatLng> points,LatLng userLatLng) {
+            public void drawLine(List<LatLng> points,String isServiceCenter) {
                 if (points == null) {
                     Log.e("Draw Line", "got null as parameters");
                     return;
+                }
+                if(googleMap!=null){
+                    googleMap.clear();
                 }
                 int s = points.size()-1;
                 double latCurrent = points.get(0).latitude;
@@ -700,18 +913,38 @@ if(googleMap!=null){
 
                 double latCurrent1 = points.get(s).latitude;
                 double lngCurrent1 = points.get(s).longitude;
-                 sydney = new LatLng(latCurrent, lngCurrent);
+                sydney = new LatLng(latCurrent, lngCurrent);
+                LatLng sydney1= new LatLng(latCurrent1, lngCurrent1);
+                if(isServiceCenter.equals("1")){
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(latCurrent, lngCurrent))
+                            .title("Runner Current Position")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_google_map_cion)));
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                }else {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(latCurrent, lngCurrent))
+                            .title("Service Center")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.service_center_image)));
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney1).zoom(15).build();
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                }
+
+
+
+              /*        googleMap.addMarker(new MarkerOptions().position(sydney1).title("Runner").snippet("Current Position"));
+*/
                 googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latCurrent, lngCurrent))
+                        .position(new LatLng(latCurrent1, lngCurrent1))
                         .title("Customer Location")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.home_icon_map)));
-             //   googleMap.addMarker(new MarkerOptions().position(sydney).title("Customer").snippet("Location"));          /*          LatLng sydney1= new LatLng(latCurrent1, lngCurrent1);
-               // googleMap.addMarker(new MarkerOptions().position(sydney1).title("Runner").snippet("Current Position"));
-          /*      CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
-              /* line = googleMap.addPolyline(new PolylineOptions().width(3).color(Color.BLUE));
+
+
+            line = googleMap.addPolyline(new PolylineOptions().width(3).color(Color.BLUE));
                 line.setPoints(points);
-              myPolyline = googleMap.addPolyline(new PolylineOptions().addAll(points))*/;
+              myPolyline = googleMap.addPolyline(new PolylineOptions().addAll(points));
             }
 
     private List<LatLng> decodePolyLine(final String poly) {

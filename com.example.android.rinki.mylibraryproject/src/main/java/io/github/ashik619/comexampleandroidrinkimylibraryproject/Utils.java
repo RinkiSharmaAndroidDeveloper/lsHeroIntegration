@@ -16,4 +16,6 @@ public class Utils {
     public static final String  createAppt = "heroPd/create_hero_appointment_from_hero_app/";
     public static final String  getFeedbackQuestions = "heroPd/getHeroPdFeedbackQuestions/";
     public static final String  update_Payment_Status_Url = "https://letsservicetech.in/templates/paymentGateway/PaytmKit/paytmPgResponse.php?txn_id=";
+
+    public static final String  getQuestionAnswersFeedback="https://letsservice.co.in/heroPd/getFeedbackDetails/";
 }

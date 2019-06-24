@@ -41,6 +41,7 @@ public class MapActivity extends Activity {
     PickupFragment pickupFragment;
     DropFragment dropFragment;
     ImageView backIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,24 +55,31 @@ public class MapActivity extends Activity {
         dropFragment = new DropFragment();
         Intent intent = getIntent();
         dataList = intent.getParcelableExtra("dataList");
-        // getData();
-        getPickupdata();
-        getDropdata();
 
         Bundle bundleBroad = new Bundle();
-        pickupFragment.setArguments(bundleBroad);
+
+        bundleBroad.putParcelable("dataList",dataList);
         FragmentManager managerBroad = getFragmentManager();
         FragmentTransaction transactionBroad = managerBroad.beginTransaction();
         transactionBroad.replace(R.id.pick_up_map, pickupFragment, null);
+       // pickupFragment.newInstance(getApplicationContext(), dataList);
+        pickupFragment.setArguments(bundleBroad);
         transactionBroad.commit();
 
 
-        Bundle bundleBroad1 = new Bundle();
-        dropFragment.setArguments(bundleBroad);
-        FragmentManager managerBroad1 = getFragmentManager();
-        FragmentTransaction transactionBroad1 = managerBroad.beginTransaction();
-        transactionBroad.replace(R.id.drop_map, dropFragment, null);
-        transactionBroad1.commit();
+        if(!(dataList.getStatus().equals("Runner Assigned"))){
+            Bundle bundleBroad1 = new Bundle();
+            dropFragment.setArguments(bundleBroad);
+            FragmentManager managerBroad1 = getFragmentManager();
+            FragmentTransaction transactionBroad1 = managerBroad.beginTransaction();
+            transactionBroad.replace(R.id.drop_map, dropFragment, null);
+            bundleBroad.putParcelable("dataList",dataList);
+            pickupFragment.setArguments(bundleBroad);
+            transactionBroad1.commit();
+            //dropFragment.newInstance(getApplicationContext(), dataList);
+        }
+
+
 
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +146,7 @@ public class MapActivity extends Activity {
                                 }
                      if(pickupOnlyDataList.size()>0) {
                          progressBar.setVisibility(View.GONE);
-                         pickupFragment.newInstance(pickupOnlyDataList, getApplicationContext(), dataList);
+                      //   pickupFragment.newInstance(pickupOnlyDataList, getApplicationContext(), dataList);
 
                      }
 
@@ -155,7 +163,7 @@ public class MapActivity extends Activity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressBar.setVisibility(View.GONE);
-                        pickupFragment.newInstance(pickupOnlyDataList,getApplicationContext(), dataList);
+                      //  pickupFragment.newInstance(pickupOnlyDataList,getApplicationContext(), dataList);
                     }
                 });
 
@@ -207,7 +215,7 @@ public class MapActivity extends Activity {
                                 }
                      if(dropOnlyDataList.size()>0)
                      {
-                         dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
+                      //   dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
                          progressBar.setVisibility(View.GONE);
                      }
 
@@ -225,7 +233,7 @@ public class MapActivity extends Activity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressBar.setVisibility(View.GONE);
-                        dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
+                  //      dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
                     }
                 });
 

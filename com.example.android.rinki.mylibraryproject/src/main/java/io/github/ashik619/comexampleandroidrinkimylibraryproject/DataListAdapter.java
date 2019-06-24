@@ -119,14 +119,11 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         holder.feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
-
-                    Toast.makeText(context, "Feedback already exist", Toast.LENGTH_LONG).show();
-                }else{
+                if ((movie.getPaymentStatus().equals("paid"))) {
                     feedBackAsyncTask.success(moviesList.get(position));
 
+                   // Toast.makeText(context, "Feedback already exist", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
         holder.PhoneBtn.setOnClickListener(new View.OnClickListener() {
@@ -165,20 +162,29 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         if (!TextUtils.isEmpty(movie.getBookingNo())) {
             holder.bookingNumber.setText(movie.getBookingNo());
         }
-        if (movie.getFinal_quotation().equals("0") || movie.getPaymentStatus().equals("paid")) {
-            holder.PaymentButton.setBackgroundResource(R.drawable.disable_btn);
+        if (movie.getPaymentStatus().equals("paid")) {
+
+            holder.PaymentButton.setVisibility(View.GONE);
+            holder.feedback.setVisibility(View.VISIBLE);
 
         }else{
-            holder.PaymentButton.setBackgroundResource(R.drawable.background_btn);
+            if(movie.getFinal_quotation().equals("0")){
+                holder.PaymentButton.setBackgroundResource(R.drawable.disable_btn);
+            }else{
+                holder.PaymentButton.setBackgroundResource(R.drawable.background_btn);
+            }
+
+            holder.PaymentButton.setVisibility(View.VISIBLE);
+            holder.feedback.setVisibility(View.GONE);
         }
 
-        if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
+      /*  if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
             holder.feedback.setBackgroundResource(R.drawable.disable_btn);
 
         }else{
             holder.feedback.setBackgroundResource(R.drawable.background_btn);
         }
-
+*/
         holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,9 +202,11 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         holder.google_map_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
+                if (!moviesList.get(position).getStatus().equals("Appointment Cancelled")&&(!moviesList.get(position).getStatus().equals("Bike Delivered"))) {
                     goOnMap.success(moviesList.get(position));
-                } else {
+                } else if(moviesList.get(position).getStatus().equals("Bike Delivered")){
+                    Toast.makeText(context, "Appointment has been delivered", Toast.LENGTH_LONG).show();
+                }else{
                     Toast.makeText(context, "Appointment Cancelled", Toast.LENGTH_LONG).show();
                 }
             }
@@ -239,6 +247,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setText("Appointment Created");
             holder.spiiner1.setVisibility(View.GONE);
+            holder.spinner.setVisibility(View.VISIBLE);
             holder.runnerAssigned2.setVisibility(View.GONE);
             holder.bikePickupedup3.setVisibility(View.GONE);
             holder.textView4.setVisibility(View.GONE);
@@ -259,7 +268,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
 
         } else if (moviesList.get(position).getStatus().equals("Runner Assigned")) {
             holder.spiiner1.setVisibility(View.GONE);
-
+            holder.spinner.setVisibility(View.VISIBLE);
             //  holder.spinner.setCurrentStep(2);
             holder.appointCreatated1.setText("Appointment Created");
             holder.appointCreatated1.setVisibility(View.VISIBLE);
@@ -281,7 +290,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.heroColorPrimary));
 
         } else if (moviesList.get(position).getStatus().equals("Bike Picked For Service")) {
-
+            holder.spinner.setVisibility(View.VISIBLE);
             holder.spiiner1.setVisibility(View.GONE);
             holder.appointCreatated1.setText("Appointment Created");
             //  holder.spinner.setCurrentStep(3);
@@ -327,6 +336,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             //  holder.spinner.setCurrentStep(3);
             // holder.spiiner1.setCurrentStep(2);
             holder.spiiner1.setVisibility(View.VISIBLE);
+            holder.spinner.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setText("Appointment Created");
             holder.runnerAssigned2.setVisibility(View.VISIBLE);
@@ -347,6 +357,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
         } else if (moviesList.get(position).getStatus().equals("Bike Delivered")) {
         /*    holder.spinner.setCurrentStep(3);
             holder.spiiner1.setCurrentStep(3);*/
+            holder.spinner.setVisibility(View.VISIBLE);
             holder.spiiner1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);
             holder.appointCreatated1.setText("Appointment Created");
@@ -365,8 +376,10 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             holder.viewDot2.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
             holder.viewDot3.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
             holder.viewDot4.setBackgroundColor(context.getResources().getColor(R.color.greenColor));
-        } else if (moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
-
+        }
+        else if (moviesList.get(position).getStatus().equals("Appointment Cancelled")) {
+            holder.feedback.setVisibility(View.GONE);
+            holder.PaymentButton.setVisibility(View.GONE);
             holder.spinner.setVisibility(View.GONE);
             holder.spiiner1.setVisibility(View.GONE);
             holder.appointCreatated1.setVisibility(View.VISIBLE);

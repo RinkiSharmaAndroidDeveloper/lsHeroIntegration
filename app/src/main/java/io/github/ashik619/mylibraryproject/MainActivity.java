@@ -34,16 +34,18 @@ textView =findViewById(R.id.detailsText);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-   /*  vinNUm = vinNumber.getText().toString();
+   /* vinNUm = vinNumber.getText().toString();
                 if(TextUtils.isEmpty(vinNUm)){
                     vinNumber.setError("Please enter valid vinNumber");
                 }else {
                     LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration();
-                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,"MBLHA10ADBHE07722","2019-05-30","10:00");
+                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,"MBLHA10ADBHE07722","2019-06-30","10:00");
                 }*/
 
          // chassisNo":"MBLHAR238J4K04891","bookingDate":"2019-06-01","slotValue":"8:30"}
+
  LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLHA10ADBHE07722");
+
 
 
      /*   LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLHA10EYBHE76321");*/

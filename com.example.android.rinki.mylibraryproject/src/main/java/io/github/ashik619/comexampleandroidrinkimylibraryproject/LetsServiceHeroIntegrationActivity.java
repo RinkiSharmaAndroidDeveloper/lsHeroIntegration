@@ -61,6 +61,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
     String userId=null,privilegedId=null,aaptId=null;
     boolean isFeedbackFilled=false;
     List<QuestionsData> questionsDataList;
+    List<AnswersData> answersDataListFeedback;
     ImageView imageView;
     Dialog   dialog;
     String headerToken;
@@ -84,6 +85,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         listData=new ArrayList<>();
         questionsDataList=new ArrayList<>();
         answersDataList = new ArrayList<>();
+        answersDataListFeedback = new ArrayList<>();
        // dialog = new Dialog(this);
         dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         mAdapter = new DataListAdapter(listData,getApplicationContext(),asyncResult_clickPayTm, viewJobCard,goOnMap,feedBackAsyncTask );
@@ -119,10 +121,15 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
     AsyncResult<DataList> feedBackAsyncTask = new AsyncResult<DataList>()  {
         @Override
         public void success(DataList dataList) {
-            userId=dataList.getUserId();
-            privilegedId=dataList.getPrivilegeId();
-            aaptId=dataList.getId();
-            getFeedBackQuestion();
+            if(dataList.getFeedbackStatus().equals("true")){
+                getFeedBackQuestionAnswer(dataList.getId());
+            }else{
+                userId=dataList.getUserId();
+                privilegedId=dataList.getPrivilegeId();
+                aaptId=dataList.getId();
+                getFeedBackQuestion();
+            }
+
         }
         @Override
         public void error(String error) {
@@ -327,8 +334,10 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                                     String mobile = jsonObject.getString("user_mobile");
                                     String paymentStatus = jsonObject.getString("paymentStatus");
                                     String feedbackStatus = jsonObject.getString("feedbackStatus");
+                                    String serviceCenterLat = jsonObject.getString("serviceCenterLat");
+                                    String serviceCenterLng = jsonObject.getString("serviceCenterLon");
 
-                                    DataList dataList =new  DataList(customerName1,email,user_picture,bikeBrandname, id, userId, createdBy_Id,  organicId,  pcId,  bikeBrand,  bikeModel,  bikeNo,  pickAddress,  dropAddress,  locality,  dateTime,  serviceTypeId,  assistanceTypeId,assistanceType, serviceCenter, typeOfService,  customerType,  status,  ACRId,  cancelRemarks,  lsRemarks,  scStatus,  final_quotation,  discounted_amount,  assistanceAmount,  lsAmount,  chassisNo,  engineNO,  SPONO,  dealerCode,  availHMSICredit,  typeOfPD,  amcUser, privilegeId, cityId,  couponId,  teleCallerTCID,  CREID,  activeStatus,rating,runnerId,  runnerName,runnerPicture,runnerMobile,bookingNo,mobile,paymentStatus,feedbackStatus);
+                                    DataList dataList =new  DataList(customerName1,email,user_picture,bikeBrandname, id, userId, createdBy_Id,  organicId,  pcId,  bikeBrand,  bikeModel,  bikeNo,  pickAddress,  dropAddress,  locality,  dateTime,  serviceTypeId,  assistanceTypeId,assistanceType, serviceCenter, typeOfService,  customerType,  status,  ACRId,  cancelRemarks,  lsRemarks,  scStatus,  final_quotation,  discounted_amount,  assistanceAmount,  lsAmount,  chassisNo,  engineNO,  SPONO,  dealerCode,  availHMSICredit,  typeOfPD,  amcUser, privilegeId, cityId,  couponId,  teleCallerTCID,  CREID,  activeStatus,rating,runnerId,  runnerName,runnerPicture,runnerMobile,bookingNo,mobile,paymentStatus,feedbackStatus,serviceCenterLat,serviceCenterLng);
                                     listData.add(dataList);
 
                                 }
@@ -580,7 +589,9 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
 
         queue = Volley.newRequestQueue(this);
         progress.setVisibility(View.VISIBLE);
-
+        if(questionsDataList.size()>0){
+            questionsDataList.clear();
+        }
         String token =generateHash("3");
         final String headTokn =generateHeader("3");
         String URL = Utils.Base_url+Utils.getFeedbackQuestions+"3/"+token;
@@ -638,8 +649,75 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         queue.add(jsObjRequest);
     }
 
+ private void getFeedBackQuestionAnswer(String apptId){
+        RequestQueue queue = null;
+        if(answersDataListFeedback.size()>0){
+            answersDataListFeedback.clear();
+        }
+        queue = Volley.newRequestQueue(this);
+        progress.setVisibility(View.VISIBLE);
 
-     private boolean submitFeedBackQuestion(List<AnswersData> answersDataList) {
+        String token =generateHash("3");
+        final String headTokn =generateHeader("3");
+
+        String URL = Utils.getQuestionAnswersFeedback+apptId+"/3/"+token;
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response);
+                        progress.setVisibility(View.GONE);
+                        Log.e("Response", response.toString());
+                        String responsemessage = null;
+
+                        try {
+                            String success = response.getString("success");
+
+                            if(success.equals("true")) {
+                                JSONArray questions = response.getJSONArray("feedbackDetails");
+                           for(int i=0;i<questions.length();i++){
+                               JSONObject jsonObject =questions.getJSONObject(i);
+                               String question =jsonObject.getString("question");
+                               String answer =jsonObject.getString("rating");
+                               AnswersData  questionsData=new AnswersData(question,answer);
+                               answersDataListFeedback.add(questionsData);
+                           }
+                                showFeedbackAnswer(answersDataListFeedback,getApplicationContext());
+                            }else{
+
+                            }
+
+//8147868049
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.d("ERROR","error => "+error.toString());
+                        progress.setVisibility(View.GONE);
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Header-Token", headTokn);
+                return params;
+            }
+        };
+
+        queue.add(jsObjRequest);
+    }
+
+
+     private boolean submitFeedBackQuestion(List<AnswersData> answersDataList, final Dialog dialog1) {
          RequestQueue queue = null;
 
          queue = Volley.newRequestQueue(this);
@@ -685,7 +763,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                              String success = response.getString("success");
                              String message = response.getString("message");
                              if (success.equals("true")) {
-                                 dialog.dismiss();
+                                 dialog1.dismiss();
                                  getAuthenticateLogin(id);
                                  Toast.makeText(LetsServiceHeroIntegrationActivity.this, message, Toast.LENGTH_LONG).show();
                              } else {
@@ -751,16 +829,17 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
     }
 */
     private void showFeedback(final List<QuestionsData> questionsData, Context context){
-RecyclerView recyclerViewDialog;
-FeedbackAdapter feedbackAdapter;
+        RecyclerView recyclerViewDialog;
+        FeedbackAdapter feedbackAdapter;
     //final Dialog dialog = new Dialog(this);
 
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
-    dialog.setContentView(R.layout.feedback_dialog);
-    dialog.setTitle("Submit Feedback");
+        dialog.setContentView(R.layout.feedback_dialog);
+        dialog.setTitle("Submit Feedback");
         recyclerViewDialog=(RecyclerView)dialog.findViewById(R.id.recycler_view_dialog);
         Button dialogButton = (Button) dialog.findViewById(R.id.submit);
         feedbackAdapter = new FeedbackAdapter(questionsData,context,asyncResult_clickPayTm1);
@@ -771,7 +850,7 @@ FeedbackAdapter feedbackAdapter;
 
 
         // if button is clicked, close the custom dialog
-    dialogButton.setOnClickListener(new View.OnClickListener() {
+           dialogButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -780,7 +859,7 @@ FeedbackAdapter feedbackAdapter;
             {
 
 
-                isFeedbackFilled =  submitFeedBackQuestion(answersDataList);
+                isFeedbackFilled =  submitFeedBackQuestion(answersDataList,dialog);
 
             }else{
                 Toast.makeText(getApplicationContext(), "Please fill all the questions", Toast.LENGTH_LONG).show();
@@ -791,6 +870,35 @@ FeedbackAdapter feedbackAdapter;
         }
     });
 
+    dialog.show();
+}
+
+private void showFeedbackAnswer(final List<AnswersData> answersData, Context context){
+        RecyclerView recyclerViewDialog;
+        FeedbackAnswerAdapter feedbackAdapter;
+   final Dialog dialog = new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.setContentView(R.layout.feedback_dialog);
+        dialog.setTitle("Feedback");
+        recyclerViewDialog=(RecyclerView)dialog.findViewById(R.id.recycler_view_dialog);
+        Button dialogButton = (Button) dialog.findViewById(R.id.submit);
+        TextView feedBackText = (TextView) dialog.findViewById(R.id.feedSummry);
+        TextView feedBackInfo = (TextView) dialog.findViewById(R.id.feedback_info);
+         feedBackInfo.setVisibility(View.GONE);
+         feedBackText.setText("Feedback Summary");
+        feedbackAdapter = new FeedbackAnswerAdapter(answersData,context);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewDialog.setLayoutManager(mLayoutManager);
+
+        recyclerViewDialog.setAdapter(feedbackAdapter);
+
+
+        // if button is clicked, close the custom dialog
+    dialogButton.setVisibility(View.GONE);
     dialog.show();
 }
     AsyncResult<AnswersData> asyncResult_clickPayTm1 = new AsyncResult<AnswersData>()  {

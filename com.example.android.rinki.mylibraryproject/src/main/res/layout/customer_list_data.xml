@@ -480,7 +480,7 @@ Delivery"
     android:layout_height="50dp"
     android:background="@drawable/gray_circuler_back"
     android:gravity="center"
-
+android:layout_marginLeft="10dp"
 
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
@@ -492,7 +492,7 @@ Delivery"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:adjustViewBounds="true"
-        android:padding="7dp"
+             android:padding="7dp"
 
             android:src="@drawable/track_runner_icon" />
 
@@ -505,21 +505,7 @@ Delivery"
             android:text="Track Runner" />
 
 </LinearLayout>
-        <Button
-            android:layout_width="110dp"
-            android:background="@drawable/background_btn"
-            android:id="@+id/feedBackbutton"
-            android:paddingRight="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:text="Feedback"
-            android:layout_gravity="center|right"
-            android:textAlignment="center"
-            android:paddingLeft="5dp"
 
-            android:textColor="@color/white"
-            android:layout_height="40dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -597,11 +583,26 @@ android:id="@+id/payment_btn"
             android:textAlignment="center"
             android:layout_marginRight="10dp"
             android:paddingLeft="5dp"
+
             android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
             android:textColor="@color/white"
             android:layout_height="40dp" />
-
+        <Button
+            android:layout_width="110dp"
+            android:background="@drawable/background_btn"
+            android:id="@+id/feedBackbutton"
+            android:paddingRight="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:text="Feedback"
+            android:visibility="gone"
+            android:layout_gravity="center|right"
+            android:textAlignment="center"
+            android:paddingLeft="5dp"
+            android:textColor="@color/white"
+            android:layout_height="40dp" />
     </RelativeLayout>
 
 
