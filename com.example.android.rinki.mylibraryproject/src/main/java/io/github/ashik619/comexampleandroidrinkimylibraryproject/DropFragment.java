@@ -77,47 +77,6 @@ public class DropFragment extends Fragment {
     Handler handler;
     Polyline line;
     Polyline myPolyline;
-    public DropFragment newInstance(Context context, final DataList dataList) {
-        DropFragment fragment = new DropFragment();
-        Bundle args = new Bundle();
-        this.context=context;
-        this.dataList= dataList;
-        //Bike Service In Progress
-        if(dataList.getStatus().equals("Bike Delivered")){
-            mMapView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            userLatLng = getLocationFromAddress(context, dataList.getDropAddress());
-
-            if(userLatLng!=null){
-                getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
-            }
-
-            //
-        }if(dataList.getStatus().equals("Bike Service In Progress")||dataList.getStatus().equals("Bike Picked For Service")||dataList.getStatus().equals("Runner Assigned")||dataList.getStatus().equals("Appointment Created")){
-            mMapView.setVisibility(View.GONE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.VISIBLE);
-        }if(dataList.getStatus().equals("Bike Picked For Delivery")){
-
-            mMapView.setVisibility(View.VISIBLE);
-            userLatLng = getLocationFromAddress(context, dataList.getDropAddress());
-           // imageView.setVisibility(View.VISIBLE);
-            if(userLatLng!=null)
-            {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        getRunnerLocation(dataList,userLatLng);
-                        // this method will contain your almost-finished HTTP calls
-                        handler.postDelayed(this, FIVE_SECONDS);
-                    }
-                }, FIVE_SECONDS);
-
-            }
-            textView.setVisibility(View.GONE);
-        }
-        return fragment;
-    }
 
 
     public void setFragmentValues(Context context, final DataList dataList){
@@ -299,8 +258,11 @@ public class DropFragment extends Fragment {
 
     private void getRunnerLocation(DataList dataList, final LatLng latLng){
         RequestQueue queue = null;
-
-        queue = Volley.newRequestQueue(getActivity());
+        if(getActivity()!=null) {
+            queue = Volley.newRequestQueue(getActivity());
+        }else{
+            return;
+        }
         // progress.setVisibility(View.VISIBLE);
 
         String token =generateHash("3");
@@ -386,7 +348,9 @@ public class DropFragment extends Fragment {
         String link6 = "https://maps.googleapis.com/maps/api/directions/json?origin=" +latit1+ "," +longit1+ "&destination=" + latLng.latitude + "," + latLng.longitude + "&mode=car&key=AIzaSyAyjEwKCLpCMA2CFFy0JDn2D9YP6d6kK64";
         Log.e("Link 67", link6);
 
-
+if(getActivity()==null){
+    return;
+}
         final RequestQueue queue = Volley.newRequestQueue(getActivity());
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, link6, null, new Response.Listener<JSONObject>() {
             @Override

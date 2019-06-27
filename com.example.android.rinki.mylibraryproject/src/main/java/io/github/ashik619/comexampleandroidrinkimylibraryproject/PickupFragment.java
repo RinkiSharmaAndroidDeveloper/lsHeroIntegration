@@ -101,56 +101,6 @@ ProgressBar progressBar;
     String runnerLongitude=null;
     boolean isRunnerRuning =false;
 
- /*   public PickupFragment newInstance(Context context, final DataList dataList) {
-        PickupFragment fragment = new PickupFragment();
-        Bundle args = new Bundle();
-        this.context = context;
-        this.dataList = dataList;
-        if (dataList.getStatus().equals("Appointment Created")) {
-            mMapView.setVisibility(View.GONE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.VISIBLE);
-        }if (dataList.getStatus().equals("Runner Assigned")) {
-            mMapView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
-
-            if(userLatLng!=null)
-            {
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        getRunnerLocation(dataList,userLatLng,"1");
-                        // this method will contain your almost-finished HTTP calls
-                        handler.postDelayed(this, FIVE_SECONDS);
-                    }
-                }, FIVE_SECONDS);
-
-            }
-
-        } else if (dataList.getStatus().equals("Bike Picked For Service")) {
-            mMapView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
-
-        if(userLatLng!=null){
-            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
-            getRunnerLocation(dataList,userLatLng,"2");
-        }
-        } else if (dataList.getStatus().equals("Bike Picked For Delivery") || dataList.getStatus().equals("Bike Delivered") || dataList.getStatus().equals("Bike Service In Progress")) {
-            mMapView.setVisibility(View.VISIBLE);
-            imageView.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            userLatLng = getLocationFromAddress(context, dataList.getPickAddress());
-
-        if(userLatLng!=null){
-            getPolyline(dataList.getServiceCenterLat(),dataList.getServiceCenterLng(),userLatLng,"2");
-        }
-        }
-        return fragment;
-    }*/
-
 
 public void setFragmentValues(Context context, final DataList dataList){
 
