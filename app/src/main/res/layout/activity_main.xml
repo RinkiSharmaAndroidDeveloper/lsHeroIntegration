@@ -25,14 +25,25 @@
         android:layout_marginLeft="20dp"
         android:layout_height="40dp" />
     <Button
-        android:id="@+id/updateButton"
+        android:id="@+id/create_appt"
         android:layout_width="wrap_content"
         android:gravity="center"
         android:textColor="#ffffff"
         android:background="@color/colorAccent"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="Press to update"/>
+        android:text="Create Appointment"/>
+
+    <Button
+        android:id="@+id/View_list"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorAccent"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="View List"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"

@@ -235,8 +235,14 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             Picasso.with(context).load(movie.getRunnerPicture()).into(holder.userImg);
         }
 
+     if(movie.getRating()!=null&&!TextUtils.isEmpty(movie.getRating()))
+     {
+         holder.userRating.setVisibility(View.VISIBLE);
+         holder.userRating.setText(movie.getRating());
+     }else{
+         holder.userRating.setVisibility(View.GONE);
+     }
 
-        holder.userRating.setText(movie.getRating());
 
 
         if (moviesList.get(position).getStatus().equals("Appointment Created")) {

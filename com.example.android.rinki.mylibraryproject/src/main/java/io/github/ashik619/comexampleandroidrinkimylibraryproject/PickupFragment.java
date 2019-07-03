@@ -578,7 +578,10 @@ if(googleMap!=null){
 
     private void getRunnerLocation(DataList dataList, final LatLng latLng, final String isRunnerAvil){
         RequestQueue queue = null;
-
+        if(getActivity()==null)
+        {
+            return;
+        }
         queue = Volley.newRequestQueue(getActivity());
         progressBar.setVisibility(View.VISIBLE);
 
@@ -743,8 +746,14 @@ if(googleMap!=null){
         String link6 = "https://maps.googleapis.com/maps/api/directions/json?origin=" +latit1+ "," +longit1+ "&destination=" + latLng.latitude + "," + latLng.longitude + "&mode=car&key=AIzaSyAyjEwKCLpCMA2CFFy0JDn2D9YP6d6kK64";
         Log.e("Link 67", link6);
 
-progressBar.setVisibility(View.VISIBLE);
-        final RequestQueue queue = Volley.newRequestQueue(getActivity());
+            progressBar.setVisibility(View.VISIBLE);
+
+        if(getActivity()==null){
+            return;
+        }
+    final RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, link6, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -72,6 +72,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         setContentView(R.layout.activity_rss_test);
 
         progress=findViewById(R.id.progress);
+        listData=new ArrayList<>();
        Intent intent =getIntent();
       if(intent!=null){
             id=intent.getStringExtra("id");
@@ -82,7 +83,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         errorTextView = (TextView) findViewById(R.id.error_message);
         imageView = (ImageView) findViewById(R.id.up_icon);
-        listData=new ArrayList<>();
+
         questionsDataList=new ArrayList<>();
         answersDataList = new ArrayList<>();
         answersDataListFeedback = new ArrayList<>();
@@ -341,7 +342,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
                                     listData.add(dataList);
 
                                 }
-                                showErrorText(listData);
+                              showErrorText(listData);
                                 mAdapter.notifyDataSetChanged();
 
                                 Toast.makeText(getApplicationContext(), "Details found successfully", Toast.LENGTH_LONG).show();
@@ -470,12 +471,12 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         return hash+"";
     }
 
-    @Override
+  /*  @Override
     protected void onPostResume() {
         super.onPostResume();
         getAuthenticateLogin(id);
 
-    }
+    }*/
 
     @Override
     public void onTransactionResponse(Bundle inResponse) {
