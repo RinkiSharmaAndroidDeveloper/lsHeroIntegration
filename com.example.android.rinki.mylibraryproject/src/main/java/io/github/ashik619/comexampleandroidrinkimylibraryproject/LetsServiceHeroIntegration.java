@@ -43,7 +43,7 @@ public class LetsServiceHeroIntegration {
             Intent i = new Intent(context.getApplicationContext(), LetsServiceHeroIntegrationActivity.class);
             i.putExtra("id",vinNumber);
 
-            context.getApplicationContext().startActivity(i);
+            context.startActivity(i);
     }
 
     public LetsServiceHeroIntegration() {

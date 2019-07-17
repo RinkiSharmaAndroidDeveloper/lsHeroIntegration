@@ -40,7 +40,7 @@ textView =findViewById(R.id.detailsText);
                     vinNumber.setError("Please enter valid vinNumber");
                 }else {
                     LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration();
-                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,vinNUm,"2019-07-3","17:52");
+                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,vinNUm,"2019-07-8","15:28");
                 }
 
          // chassisNo":"MBLHAR238J4K04891","bookingDate":"2019-06-01","slotValue":"8:30"}
