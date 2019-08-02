@@ -263,9 +263,8 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
             listData.clear();
         }
         headerToken =generateHeader("503");
-        //String URL = Utils.Base_url+mobile;
      String URL =Utils.Base_url+Utils.Fetch_List+id+"/503/14229915560960046";
-  /*      String URL ="http://stagging.us-west-2.elasticbeanstalk.com/"+Utils.Fetch_List+"MERTYUI123456789"+"/503/14229915560960046";*/
+
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
@@ -471,16 +470,9 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         return hash+"";
     }
 
-  /*  @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        getAuthenticateLogin(id);
-
-    }*/
-
     @Override
     public void onTransactionResponse(Bundle inResponse) {
-     //   Toast.makeText(this, inResponse.toString(), Toast.LENGTH_LONG).show();
+
         parsePaytmResponse(inResponse);
 
     }
@@ -814,21 +806,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
         }
         return hash+"";
     }
-     //LsSalesHeader
 
-   /* @Override
-    public void onStart()
-    {
-        super.onStart();
-
-        if (dialog != null)
-        {
-            int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
-        }
-    }
-*/
     private void showFeedback(final List<QuestionsData> questionsData, Context context){
         RecyclerView recyclerViewDialog;
         FeedbackAdapter feedbackAdapter;

@@ -1407,21 +1407,12 @@ mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLon, zoomLevel));*
 
 
          ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
-         // valueAnimator.setDuration(3000);
-         //valueAnimator.setInterpolator(new LinearInterpolator());
+
          valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
              @Override
              public void onAnimationUpdate(ValueAnimator valueAnimator) {
-              /*  v = valueAnimator.getAnimatedFraction();
-                double lng = v * latLngs.get(1).longitude + (1 - v)
-                        * latLngs.get(0).longitude;
-                double lat = v * latLngs.get(1).latitude + (1 - v)
-                        * latLngs.get(0).latitude;
-                LatLng newPos = new LatLng(lat, lng);
-                marker.remove();
-                marker.setPosition(newPos);
-                marker.setAnchor(1.5f, 0.5f);*/
-                 // marker.setRotation(getBearing(latLngs.get(0), newPos));
+
+
 
 
                  marker.remove();
@@ -1456,81 +1447,11 @@ mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLon, zoomLevel));*
      }
     }
 
-    static void animateMarkerToGB(final Marker marker, final LatLng finalPosition, final LatLngInterpolator latLngInterpolator) {
-        final LatLng startPosition = marker.getPosition();
-        final Handler handler = new Handler();
-        final long start = SystemClock.uptimeMillis();
-        final Interpolator interpolator = new AccelerateDecelerateInterpolator();
-        final float durationInMs = 3000;
-        oldlatitude = finalPosition.latitude;
-        oldlngitude= finalPosition.longitude;
-        handler.post(new Runnable() {
-            long elapsed;
-            float t;
-            float v;
 
-            @Override
-            public void run() {
-                // Calculate progress using interpolator
-                elapsed = SystemClock.uptimeMillis() - start;
-                t = elapsed / durationInMs;
-                v = interpolator.getInterpolation(t);
-
-                marker.setPosition(latLngInterpolator.interpolate(v, startPosition, finalPosition));
-
-                // Repeat till progress is complete.
-                if (t < 1) {
-                    // Post again 16ms later.
-                    handler.postDelayed(this, 16);
-                }
-            }
-        });
-    }
-
-
-    public void animateMarker(final Marker marker, final LatLng toPosition,
-                              final boolean hideMarker) {
-        final Handler handler = new Handler();
-        final long start = SystemClock.uptimeMillis();
-        Projection proj = googleMap.getProjection();
-        Point startPoint = proj.toScreenLocation(marker.getPosition());
-        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
-        final long duration = 5000;
-        final Interpolator interpolator = new LinearInterpolator();
-        oldlatitude = toPosition.latitude;
-        oldlngitude= toPosition.longitude;
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                long elapsed = SystemClock.uptimeMillis() - start;
-                float t = interpolator.getInterpolation((float) elapsed
-                        / duration);
-                double lng = t * toPosition.longitude + (1 - t)
-                        * startLatLng.longitude;
-                double lat = t * toPosition.latitude + (1 - t)
-                        * startLatLng.latitude;
-                marker.setPosition(new LatLng(lat, lng));
-                if (t < 1.0) {
-                    // Post again 16ms later.
-                    handler.postDelayed(this, 100);
-                } else {
-                    if (hideMarker) {
-                        marker.setVisible(false);
-                    } else {
-                        marker.setVisible(true);
-                    }
-                }
-            }
-        });
-    }
 
     public void moveVechile(final Marker myMarker, final Location finalPosition) {
 
      final LatLng startPosition = myMarker.getPosition();
-       /* Projection proj = googleMap.getProjection();
-        Point startPoint = proj.toScreenLocation(myMarker.getPosition());
-
-        final LatLng startPosition = proj.fromScreenLocation(startPoint);*/
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
         final Interpolator interpolator = new AccelerateDecelerateInterpolator();
@@ -1549,15 +1470,7 @@ mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLon, zoomLevel));*
                 elapsed = SystemClock.uptimeMillis() - start;
                 t = elapsed / durationInMs;
                 v = interpolator.getInterpolation(t);
-               // long elapsed = SystemClock.uptimeMillis() - start;
 
-             /*   double lng = t * finalPosition.getLongitude()+ (1 - t)
-                        * startPosition.longitude;
-                double lat = t *finalPosition.getLatitude() + (1 - t)
-                        * startPosition.latitude ;
-
-                myMarker.setPosition(new LatLng(lat, lng));
-*/
                LatLng currentPosition = new LatLng(
                         startPosition.latitude * (1 - t) + (finalPosition.getLatitude()) * t,
                         startPosition.longitude * (1 - t) + (finalPosition.getLongitude()) * t);

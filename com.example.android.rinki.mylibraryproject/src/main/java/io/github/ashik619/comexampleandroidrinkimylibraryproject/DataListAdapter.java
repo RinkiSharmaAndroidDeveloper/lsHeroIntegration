@@ -178,13 +178,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
             holder.feedback.setVisibility(View.GONE);
         }
 
-      /*  if (movie.getFeedbackStatus().equals("true")||(moviesList.get(position).getStatus().equals("Appointment Cancelled"))) {
-            holder.feedback.setBackgroundResource(R.drawable.disable_btn);
 
-        }else{
-            holder.feedback.setBackgroundResource(R.drawable.background_btn);
-        }
-*/
         holder.PaymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
