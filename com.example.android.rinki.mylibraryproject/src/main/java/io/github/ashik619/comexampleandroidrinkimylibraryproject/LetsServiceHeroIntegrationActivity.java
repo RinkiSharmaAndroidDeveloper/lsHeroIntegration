@@ -143,6 +143,7 @@ public class LetsServiceHeroIntegrationActivity extends Activity implements Payt
 
          Intent intent =new Intent(LetsServiceHeroIntegrationActivity.this,MapActivity.class);
          intent.putExtra("dataList",dataList);
+
             startActivity(intent);
         }
         @Override

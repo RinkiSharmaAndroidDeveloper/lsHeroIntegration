@@ -146,6 +146,7 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.MyView
                 Intent intentCall = new Intent(Intent.ACTION_CALL);
 
                 intentCall.setData(Uri.parse("tel:" + movie.getRunnerMobile()));
+                intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intentCall);
 
             }

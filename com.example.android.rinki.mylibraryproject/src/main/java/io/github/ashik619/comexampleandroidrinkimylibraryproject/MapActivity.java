@@ -62,7 +62,6 @@ public class MapActivity extends Activity {
         FragmentManager managerBroad = getFragmentManager();
         FragmentTransaction transactionBroad = managerBroad.beginTransaction();
         transactionBroad.replace(R.id.pick_up_map, pickupFragment, null);
-       // pickupFragment.newInstance(getApplicationContext(), dataList);
         pickupFragment.setArguments(bundleBroad);
         transactionBroad.commit();
 
@@ -76,7 +75,6 @@ public class MapActivity extends Activity {
             bundleBroad.putParcelable("dataList",dataList);
             pickupFragment.setArguments(bundleBroad);
             transactionBroad1.commit();
-            //dropFragment.newInstance(getApplicationContext(), dataList);
         }
 
 
@@ -99,146 +97,5 @@ public class MapActivity extends Activity {
       return hash+"";
   }
 
-    public void getPickupdata()
-    {
 
-
-        RequestQueue queue = null;
-
-        queue = Volley.newRequestQueue(this);
-        progressBar.setVisibility(View.VISIBLE);
-        String URL=null;
-
-      String token =generateHash(dataList.getId());
-        URL ="https://letsservicetech.in/appointmentWiseRunnerTrack/"+dataList.getId()+"/start/startPick/endPick/"+token;
-
-
-        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        System.out.println(response);
-                     //   progressBar.setVisibility(View.GONE);
-                    //    Log.e("Response", response.toString());
-                        String responsemessage = null;
-
-
-                        String typeOfServ = null;
-                 try {
-                        //  JSONArray json =response.getJSONArray("");
-
-                            for(int i=0;i<response.length();i++){
-
-                                {
-                                    JSONObject jsonObject = response.getJSONObject(i);
-
-
-                                       String  startPickupLat = jsonObject.getString("lat");
-                                       String  StartPickupLng = jsonObject.getString("lng");
-
-                                       // String  startPickupLat1,StartPickupLng1,dropPickupLat1,dropPickupLng1;
-                                     latLng = new LatLng(Double.parseDouble(startPickupLat.trim()),Double.parseDouble(StartPickupLng.trim()));
-                                    if (!pickupOnlyDataList.contains(latLng)){
-                                        pickupOnlyDataList.add(latLng);
-                                    }
-                                }
-
-                                }
-                     if(pickupOnlyDataList.size()>0) {
-                         progressBar.setVisibility(View.GONE);
-                      //   pickupFragment.newInstance(pickupOnlyDataList, getApplicationContext(), dataList);
-
-                     }
-
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-
-
-                },
-
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressBar.setVisibility(View.GONE);
-                      //  pickupFragment.newInstance(pickupOnlyDataList,getApplicationContext(), dataList);
-                    }
-                });
-
-        queue.add(jsObjRequest);
-
-
-    }
-
-
-    public void getDropdata()
-    {
-        RequestQueue queue = null;
-        queue = Volley.newRequestQueue(this);
-        progressBar.setVisibility(View.VISIBLE);
-        String URL=null;
-
-        String token =generateHash(dataList.getId());
-        URL ="https://letsservicetech.in/appointmentWiseRunnerTrack/"+dataList.getId()+"/start/startDrop/dropEnd/"+token;
-
-
-
-        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        System.out.println(response);
-                        String responsemessage = null;
-                        progressBar.setVisibility(View.GONE);
-
-                        String typeOfServ = null;
-                 try {
-                     for(int i=0;i<response.length();i++){
-
-                                {
-                                    JSONObject jsonObject = response.getJSONObject(i);
-
-
-                                       String  startPickupLat = jsonObject.getString("lat");
-                                       String  StartPickupLng = jsonObject.getString("lng");
-
-                                       // String  startPickupLat1,StartPickupLng1,dropPickupLat1,dropPickupLng1;
-                                     latLng = new LatLng(Double.parseDouble(startPickupLat.trim()),Double.parseDouble(StartPickupLng.trim()));
-                                    if (!dropOnlyDataList.contains(latLng)){
-                                        dropOnlyDataList.add(latLng);
-                                    }
-                                }
-
-
-                                }
-                     if(dropOnlyDataList.size()>0)
-                     {
-                      //   dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
-                         progressBar.setVisibility(View.GONE);
-                     }
-
-
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-
-
-                },
-
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressBar.setVisibility(View.GONE);
-                  //      dropFragment.newInstance(dropOnlyDataList,getApplicationContext(), dataList);
-                    }
-                });
-
-        queue.add(jsObjRequest);
-
-
-    }
 }

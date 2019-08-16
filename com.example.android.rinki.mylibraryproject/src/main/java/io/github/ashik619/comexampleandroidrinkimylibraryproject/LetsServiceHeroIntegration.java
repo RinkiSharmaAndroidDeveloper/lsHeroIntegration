@@ -42,7 +42,7 @@ public class LetsServiceHeroIntegration {
             this.googleApi = googleApi;
             Intent i = new Intent(context.getApplicationContext(), LetsServiceHeroIntegrationActivity.class);
             i.putExtra("id",vinNumber);
-
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
     }
 
@@ -56,9 +56,11 @@ public class LetsServiceHeroIntegration {
             this.bookingDate = bookingDate;
             this.bookingSlot = bookingSlot;
         Intent i = new Intent(context.getApplicationContext(), StausActivity.class);
+
         i.putExtra("id",vinNumber);
         i.putExtra("bookingDate",bookingDate);
         i.putExtra("bookingSlot",bookingSlot);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(i);
 
     }

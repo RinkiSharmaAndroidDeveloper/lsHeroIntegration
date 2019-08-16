@@ -40,16 +40,9 @@ textView =findViewById(R.id.detailsText);
                     vinNumber.setError("Please enter valid vinNumber");
                 }else {
                     LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration();
-                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,vinNUm,"2019-07-8","15:28");
+                    rssFeedProvider.LetsServiceHeroCreateAppointment(MainActivity.this,vinNUm,"2019-08-16","16:28");
                 }
 
-         // chassisNo":"MBLHAR238J4K04891","bookingDate":"2019-06-01","slotValue":"8:30"}
-
-
-
-
-
-     /*   LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLHA10EYBHE76321");*/
 
             }
         });
@@ -65,22 +58,11 @@ textView =findViewById(R.id.detailsText);
                     LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,vinNUm);
                 }
 
-         // chassisNo":"MBLHAR238J4K04891","bookingDate":"2019-06-01","slotValue":"8:30"}
-
-
-
-
-     /*   LetsServiceHeroIntegration rssFeedProvider =new LetsServiceHeroIntegration(MainActivity.this,"MBLHA10EYBHE76321");*/
-
             }
         });
 
     }
 
-    public void updateDetail(String uri) {  //
-
-
-    }
 
     @Override
     public void onRssItemSelected(String text) {
